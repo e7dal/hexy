@@ -1,0 +1,49 @@
+* c025ac5 layered idea
+* 8f17347 wip: correction
+* 6d5b07a todo for spoint
+* 0423c35 still needs y/Y correction for x for more than two times bigger y for Y
+* 2f5adf9 still needs y/Y correction for x for more than two times bigger y for Y, see todo.txt
+* fb71a3f better initial settings
+* 246f95c /2 problem still persists hexy.py
+* 49f66ba in spoint just set the cell, no more fill with list ..
+* 0c528a0 double, still broken if x > X/2
+* 481cd8c rename, refactor
+* 366bd8e move one to grid add one with dir
+* 159f800 works, but empty space in grid becomes overwritten by Full space
+* 6c8afb6 kind of almost...
+* a16e895 main, test, still need negative range checks
+* 46fcb73 still broken...
+* b5dd93e ignore py cache
+| *   4b878c6 WIP on master: 264ac2f added main
+| |\  
+|/ /  
+| * 95e572b index on master: 264ac2f added main
+|/  
+* 264ac2f added main
+* 0399c76 cleaning, added main
+* 0170d11 loopy
+* e84ccdc torus like, fit in grid index, todo:negatives
+* fe02c11 wip: first attempts, still not working
+* af17e8e move spoint
+* 6f9901c wip: imprpving, fixing
+* 960f5dd if main, clean
+* 7602b13 gcp, if main..
+* 47abc7c clear cursor function
+* 6e6e59b nav ideas
+* 6f32440 smaller default grid
+* e397333 cursor chars
+* 51f8979 str -> set, else replace cell
+* d1a2808 cursor present
+* 0f7514e parameters, only positive  for now
+* a59e8f0 cursor type cell
+* 59f53c0 start c same for all x,y,x lineso
+* 30817be no deb,split grid, make xyx line examples
+* d171b88 still buggy, fixing
+* e17f6d4 added position
+* 43d82f1 split
+* 829dc43 added history, not used yet
+* 25d04c5 to functions, cleanin, fit in screen with keyboard
+* c2267fb hex from ubook
+* d76f505 spiral, and searching ..
+* b9d1e73 spacy, for better visual consistency
+* 2bca152 initial, with some kind of movement

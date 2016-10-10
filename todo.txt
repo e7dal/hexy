@@ -1,0 +1,82 @@
+\add bio assertion, basic input output, assertions
+
+\make cursor characters with - and |, just two dimensional
+\make cursor blink
+
+
+
+\tui:use term ,curtises or urwid or Own
+
+\itui:ipython
+
+\colors
+
+\webui:svg,pyvg...
+
+\ use nav characters s,S: s=+ S=-
+ \ s:x,y,z
+  \S:X,Y,Z
+\ optional: use center character no nav
+ \ like h
+  \    y u
+   \  g h j
+    \  v b
+
+\torus correction: 
+ X=12
+ x=45        #3*12 +9
+ yc=int(X/x) #3
+ x=x%X       #9
+ y=yc+y%Y   
+
+\also keep the negatives in mind.
+
+
+\use spoints in istead of the named line funtions for x,y,z
+
+
+
+\ types and order of displaying:
+ \ layers:different grids
+  \ p:previous
+   \ c:current
+    \ n:next
+     \ m:meta, control and cursors,etc
+
+\in show order layers, enable disable
+
+\instead of layers:seti/add cell overlays
+
+\read
+ \  read from output into grid
+  \ for easy re-editing and festing
+   \   hexy draw -x 3 -y 3|hexy read -
+    \  read:x=3
+     \ read:y=3
+
+\strip
+ \strip the
+  \-borders
+   \-rulers
+    \-grid
+
+
+\hexy progress bars
+
+
+\fill hexcell basdd on fuctions of ...(x,y,z)
+ \ ... like sum
+  \         prod
+   \        sin,cos,tan
+    \       custom def...
+
+\ ultimate goal:game of life: hexylife, based on hexlife
+ \ count neighbours
+  \ hexcells, create a bigger object as an hexagonal cell
+   \ fill gol grid with read config or randomly fill
+    \ rule based cell  mutation
+     \ rule entry
+      \ animate
+       \ loop detection
+        \ local loop detection
+        \ editor 
