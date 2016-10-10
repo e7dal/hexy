@@ -8,6 +8,7 @@ import arrow
 from .util.bubble import Bubble
 from .grid import grid_make, grid_show
 from .draw import grid_draw
+from .read import grid_read
 
 HEXY_START_ARROW=arrow.now()
 
@@ -34,7 +35,7 @@ __copyright__ = metadata.copyright
 
 class Hexy(object):
  """ basic Hexagonal grid manager """
- def __init__(self,x,y):
+ def __init__(self,x=1,y=1):
   self.X=x
   self.Y=y
   self.grid=grid_make(x,y)
@@ -42,9 +43,19 @@ class Hexy(object):
   grid_show(self.grid)
  def draw(self,xpos,ypos,size):
   grid_draw(self.grid,xpos,ypos,size)
+ def read(self,fc=[]):
+  g,x,y=grid_read(fc)
 
 if __name__=='__main__':
  h=Hexy(12,6)
  h.show()
  h.draw(2,2,3)
  h.show()
+ hr=Hexy()
+ fc=[':|1 |:',
+     ':|__|:',
+     ':|. |:1',
+     ':|__|:',
+     ':| 1|:']
+ r=hr.read(fc)
+ print(r)
