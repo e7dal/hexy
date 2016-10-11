@@ -11,12 +11,13 @@ def make_row(l):
  r=[]
  x=0
  for s in l[2:]:
-  print(s)
-  if s =='|' and l[x]==':':break
+  deb('make_row:curr:c',s)
+  if l=="\n":break
+  if s=='|' and l[x+3]==':':break
   r.append(s)
+  deb('make_row:curr:r',r)
   x+=1
  return r,x
-
 
 def grid_read(fc=[]):
  #read hexy 'encoded' ascii grid back into an hexy grid
@@ -28,11 +29,12 @@ def grid_read(fc=[]):
  y=0
  g=[]
  for l in fc[2:-2]:
-  print('>',l,'<')
-  r,x=make_row(l)
+  deb('read line:>',l,len(l),'<')
+  ls=l.strip()
+  if ls!=l:deb('stripped',len(ls))
+  r,x=make_row(ls)
   g.append(r)
   y+=1
- #x
- print( g,x,y)
+ deb('read:res:', g,x,y)
  return g,x,y
 

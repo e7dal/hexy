@@ -6,6 +6,7 @@ import sys
 import arrow
 
 from .util.bubble import Bubble
+from .util.deb import deb,debset
 from .grid import grid_make, grid_show
 from .draw import grid_draw
 from .read import grid_read
@@ -48,7 +49,7 @@ class Hexy(object):
   self.X=x
   self.Y=y
   self.grid=g
-  print(g,x,y)
+  deb('read:',g,x,y)
   #return g,x,y
   #return self
 

@@ -26,6 +26,6 @@ def cli(ctx, gridfile):
      ':| 1|:']
  fc=gridfile.readlines()
  r=hr.read(fc)
- print(r)
+ ctx.say('read',stuff=r,verbosity=100)
  hr.show()
   
