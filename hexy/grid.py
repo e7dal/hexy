@@ -54,9 +54,9 @@ def show(HG,X,Y):
    print(b+"|"+xr+"|:"+b)
 
 def grid_show(g):
- debset(True)
+ #debset(True)
  deb(g)
- debset(False)
+ #debset(False)
  #xx=1/0
  #global X,Y
  X=len(g[0])/2
@@ -75,12 +75,12 @@ def xruler(X,Y):
    xl+=xs
    xt-=10
   else:
-   debset(True)
+   #debset(True)
    deb(xl)
    deb(xs)
    deb(xt)
    deb(len(xs))
-   debset(False)
+   #debset(False)
    xl+=xs[0:xt*2]
    #xl+=xs[0:xt]
    #xl+=xs
