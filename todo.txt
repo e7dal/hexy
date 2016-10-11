@@ -70,6 +70,12 @@
    \        sin,cos,tan
     \       custom def...
 
+\ draw with animation
+ \ create a range: -rx 1:10
+  \                -ry 1:10
+   \               --delay/interval
+    \              --clear (flag)
+
 \ ultimate goal:game of life: hexylife, based on hexlife
  \ count neighbours
   \ hexcells, create a bigger object as an hexagonal cell
@@ -79,4 +85,5 @@
       \ animate
        \ loop detection
         \ local loop detection
-        \ editor 
+         \ editor 
+
