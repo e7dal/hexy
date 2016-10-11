@@ -6,19 +6,13 @@ from .util.deb import debset,deb
 from .util.nrange import nrange
 from .cell import F,e
 
-#X = 42
-#X = 18 #3:
-#Y = 12 #2:
-X = Y = None 
 #todo put these in magic configuration/constants.
 b=':'
 GRIDCHAR='.'
 
 def grid(HG=[],xsize=7,ysize=5):
- #global X,Y
- #global X,Y
- X=int(xsize)
- Y=int(ysize)
+ X=xsize
+ Y=ysize
 
  for y in nrange(Y):
   HG.append([])
@@ -34,35 +28,35 @@ def grid_make(x,y):
 
 def show(HG,X,Y):
  i=1
+ r=[]
  xr=xruler(X,Y)
- print(b+"|"+xr+"|"+b)
- print(b+"|"+'_'*(len(xr))+"|"+b)
+ r.append(b+"|"+xr+"|"+b)
+ r.append(b+"|"+'_'*(len(xr))+"|"+b)
  for l in HG:
   s=''
   for c in l:  
    s+=str(c)
-  print(b+"|"+ s + "|"+b+str(i))
+  r.append(b+"|"+ s + "|"+b+str(i))
   i+=1
- print(b+"|"+'_'*(len(xr))+"|"+b)
+ r.append(b+"|"+'_'*(len(xr))+"|"+b)
  if Y%2==0 and X > 0:
-  print(b+"|"+str(e)+xr[0:-1]+"|"+b)
+  r.append(b+"|"+str(e)+xr[0:-1]+"|"+b)
  else:
   if X==0:
-   #print(b+"|"+str(e)+xr[0:-1]+"|"+b)
-   print(b+"||"+b)
+   r.append(b+"||"+b)
   else:
-   print(b+"|"+xr+"|:"+b)
+   r.append(b+"|"+xr+"|:"+b)
+ return r
 
 def grid_show(g):
- #debset(True)
  deb(g)
- #debset(False)
- #xx=1/0
- #global X,Y
  X=len(g[0])/2
- #assert X%2==0
  Y=len(g) 
- show(g,X,Y)
+ r=show(g,X,Y)
+ rs=''
+ for l in r:
+  rs+=l+"\n"
+ print(rs)
 
 def xruler(X,Y):
  x=[str(x) for x in nrange(9)]
