@@ -1,4 +1,4 @@
-import arrow
+import time
 from .util.deb import deb
 from .util.nrange import nrange
 GRIDCHAR='.'
@@ -30,7 +30,7 @@ class F(C):
    self._pos=(x,y)
   self.add_history()
  def add_history(self):
-  self._hist.append((self._pos,self._str,arrow.now()))
+  self._hist.append((self._pos,self._str,time.clock()))
 
 e=E()
 c=Cursor()
