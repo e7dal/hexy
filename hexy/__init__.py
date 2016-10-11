@@ -42,9 +42,15 @@ class Hexy(object):
  def show(self):
   grid_show(self.grid)
  def draw(self,xpos,ypos,size):
-  grid_draw(self.grid,xpos,ypos,size)
+  grid_draw(self.grid,xpos,ypos,size,self.X,self.Y)
  def read(self,fc=[]):
   g,x,y=grid_read(fc)
+  self.X=x
+  self.Y=y
+  self.grid=g
+  print(g,x,y)
+  #return g,x,y
+  #return self
 
 if __name__=='__main__':
  h=Hexy(12,6)
