@@ -3,15 +3,15 @@
 # lazy as i am, just a bare copy for now
 import os
 import sys
+import time
 import arrow
+from pprint import pprint
 
 
 class Bubble(object):
 
     """ puts a tiny bubble of reality into existence """
     name = None
-    _parent = None
-    _children = []
 
     birth = None
     home = None
@@ -23,7 +23,7 @@ class Bubble(object):
     _verbose = 0
     _verbose_bar = 0
 
-    adaptive_verbose = True
+    _adaptive_verbose = True
     _msg_stats = {}
     _total_verbose = 0
     _total_verbose_bar = 0
@@ -33,32 +33,25 @@ class Bubble(object):
                  name='NoName',
                  verbose=0,
                  verbose_bar=1,
-                 parent=None,
                  logfile='',
                  statistics=False):
         self.say('base.Bubble:name=' + str(name) + ', verbose=' + str(verbose))
         self.name = name
-
-        # very tricky!!
-        self.gbc = self
 
         self.birth = arrow.now()
         self._verbose = verbose
         self._verbose_bar = verbose_bar
 
 
+        self._adaptive_verbose = True
         self._msg_stats['___init_verbose'] = verbose
-        self.set_parent(parent)
         self._bubble_lib_dir = os.path.dirname(__file__)
-        self._log_file = os.path.dirname(logfile)
 
         self.say(self.name + ':here!', verbosity=101)
         self.say(self.name + ':config',
                  stuff={'verbose': self._verbose,
                         'verbose_bar': self._verbose_bar,
                         'bubble_lib_dir': self._bubble_lib_dir,
-                        'logfile': self._log_file,
-                        'parent': self._parent
                         },
                  verbosity=101)
 
@@ -69,21 +62,12 @@ class Bubble(object):
         print('entering:Bubble.name:' + str(self.name))
         print('entering:Bubble.birth:' + str(self.birth))
 
-        if self._parent:
-            print('entering:Bubble.parent.name:' + str(self._parent.name))
-            print('entering:Bubble.parent.birth:' + str(self._parent.birth))
 
     def __exit__(self, exit_type=None, value=None, traceback=None):
         if not self.debug:
             return
         print('exiting:Bubble.name:' + str(self.name))
         print('exiting:Bubble.birth:' + str(self.birth))
-
-        if self._parent:
-            print('exiting:Bubble.parent.name:' +
-                  str(self.name) + "::" + str(self._parent.name))
-            print('exiting:Bubble.parent.birth:' +
-                  str(self.birth) + "::" + str(self._parent.birth))
 
         if exit_type:
             print('exiting:Bubble:type:' + str(exit_type))
@@ -98,6 +82,7 @@ class Bubble(object):
             # print('p:' + self._parent.name)
 
     def __del__(self):
+        if self.debug:pprint(self._msg_stats)
         return self.__exit__()
 
     def _update_stat(self, stat_key):
@@ -123,20 +108,22 @@ class Bubble(object):
     #: TODO: adaptive bar raising lowering, do we want/need this?
     def verbose_plus(self, amount=1):
         self._update_stat('___verbose_plus')
-        if self.adaptive_verbose:
+        if self._adaptive_verbose:
             verbose = self.get_verbose()
             self.set_verbose(verbose + amount)
 
     def verbose_minus(self, amount=1):
         #: TODO: never drop below 1, move to a magic value
+        if self.debug: print('minus',amount,self.get_verbose())
         self._update_stat('___verbose_minus')
-        if self.adaptive_verbose and self.get_verbose() > 1:
+        if self._adaptive_verbose and self.get_verbose() > 1:
             verbose = self.get_verbose()
             if verbose > amount:
                 self.set_verbose(verbose - amount)
             else:
                 self.set_verbose(1)
         else:
+            if self.debug:print('minus below',amount)
             self._update_stat('___verbose_minus_already_below_one')
 
     def _msg(self, msg='Msg',
@@ -149,20 +136,7 @@ class Bubble(object):
         self._total_verbose += verbosity
         self._update_stat('___verb_' + verb)
 
-        if isinstance(self._parent, Bubble):
-            if child_name:
-                child_name = str(self.name) + '::' + child_name
-            else:
-                child_name = str(self.name)
-            self._parent._msg(msg=msg,
-                              stuff=stuff,
-                              verb=verb,
-                              verbosity=verbosity,
-                              child_level=child_level + 1,
-                              child_name=child_name)
-            return
-        else:
-            self._total_verbose_self += verbosity
+        self._total_verbose_self += verbosity
 
         if verbosity > self.get_verbose() or \
            verbosity > self.get_verbose_bar():
@@ -187,7 +161,8 @@ class Bubble(object):
         # print('keeping:',i,c.co_filename,c.co_firstlineno,c.co_name)
         file_line = c.co_filename+':'+str(c.co_firstlineno)
 
-        tl_item = {'attime': arrow.now()-BUBBLE_START_ARROW,
+        #tl_item = {'attime': arrow.now()-BUBBLE_START_ARROW,
+        tl_item = {'attime': time.clock(),
                    'name': self.name,
                    'msg': msg,
                    'stuff': stuff,
@@ -200,13 +175,14 @@ class Bubble(object):
                    'curr_verbose_bar':self.get_verbose_bar()
                    }
         #if not from_cli:
-        blog.info(**tl_item)
+        #blog.info(**tl_item)
+        pprint(tl_item)
 
 
-    def tl_from_child(self, exported_timeline=[]):
-        for tli in exported_timeline:
-            tli['name'] = self.name + ':parent of:' + tli['name']
-            self._timeline.append(tli)
+    #def tl_from_child(self, exported_timeline=[]):
+    #    for tli in exported_timeline:
+    #        tli['name'] = self.name + ':parent of:' + tli['name']
+    #        self._timeline.append(tli)
 
     def cry(self, msg='Crying', stuff=None, verbosity=1):
         self.verbose_plus(verbosity)
@@ -220,19 +196,6 @@ class Bubble(object):
         self._msg(msg=msg, stuff=stuff, verb='SAY', verbosity=verbosity)
         self.verbose_minus(verbosity)
 
-    def set_parent(self, parent=None):
-        if isinstance(parent, Bubble):
-            self._parent = parent
-            self.set_verbose(parent.get_verbose())
-            self.set_verbose_bar(parent.get_verbose_bar())
-            parent.add_child(self)
-
-    def add_child(self, child=None):
-        if isinstance(child, Bubble):
-            self._children.append(child)
-            # self.say('added child: '+child.name, verbosity=100)
-            self.say('number of children:%d' %
-                     len(self._children), verbosity=100)
 
     def get_total_verbose(self):
         return self._total_verbose

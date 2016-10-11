@@ -45,12 +45,10 @@ class HexyCli(Bubble):
         self.GLOBALS = HEXY_CLI_GLOBALS
         self.debug = False
 
-        self.adaptive_verbose = False
+        self.adaptive_verbose = True
 
-        #self.say_green(greeting % (self.name), verbosity=101)
-        #utf8_only(self)
         if verbose:
-            self.gbc.say('current hexy path:' + os.path.abspath(home),
+            self.say('current hexy path:' + os.path.abspath(home),
                          verbosity=2)
 
         self.config = {}  # runtime config (dynamic via options)
@@ -72,17 +70,6 @@ class HexyCli(Bubble):
         if self.verbose >= VERBOSE:
             click.echo('  config[%s] = %s' % (key, value), file=sys.stderr)
 
-    def say(self, msg, verbosity=1, stuff=None):
-        self._msg(msg=msg,
-                  verb='cli.say',
-                  verbosity=verbosity,
-                  stuff=stuff,
-                  from_cli=True)
-        if verbosity <= self.get_verbose():
-            click.echo(msg)
-            if stuff:
-                click.echo('  stuff:')
-                click.echo(pprint.pformat(stuff))
 
     def _say_color(self, msg, verbosity=0, stuff=None, fgc='green'):
         self._msg(msg=msg,
