@@ -4,14 +4,38 @@
 \make cursor blink
 
 
-
 \tui:use term ,curtises or urwid or Own
 
 \itui:ipython
+ \completion
+\bash completion
+\fish completion
+
+\hexy live edit shell
+ \completion
+  \help
 
 \colors
+ \ single color
+  \ range:rainbow,steel...
+   \ conditional
+    \ function
 
 \webui:svg,pyvg...
+
+ \draw      point xy
+  \         line xy X/x/Y/y/Z/z size
+   \
+    \       shapes: hexagon [ok]
+     \              triangle
+      \             rectangle
+       \            square(almost)
+        \           ngon
+         \          circle
+	  \         tree (recursion!!)
+\draw fill for shapes :character
+ \         string(bubble,dialog)
+  \        stream/file
 
 \ use nav characters s,S: s=+ S=-
  \ s:x,y,z
