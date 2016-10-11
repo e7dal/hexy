@@ -28,6 +28,9 @@
  yc=int(X/x) #3
  x=x%X       #9
  y=yc+y%Y   
+\ torus mode
+ \ rectangular or z->z,y->y,x->x
+  \ custom function : bubble rules like
 
 \also keep the negatives in mind.
 
