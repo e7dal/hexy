@@ -10,7 +10,7 @@ from .cell import F,e
 #X = 18 #3:
 #Y = 12 #2:
 X = Y = None 
-
+#todo put these in magic configuration/constants.
 b=':'
 GRIDCHAR='.'
 
@@ -69,15 +69,21 @@ def xruler(X,Y):
  xs=' '.join(x)
  xs+=' 0 '
  xl=''
- xt=X
+ xt=int(X)
  while xt>0:
   if xt>10:
    xl+=xs
    xt-=10
   else:
-   #xl+=xs[0:xt*2]
+   debset(True)
+   deb(xl)
+   deb(xs)
+   deb(xt)
+   deb(len(xs))
+   debset(False)
+   xl+=xs[0:xt*2]
    #xl+=xs[0:xt]
-   xl+=xs
+   #xl+=xs
    xt=0
  return xl
 
