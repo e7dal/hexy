@@ -1,5 +1,5 @@
 \add bio assertion, basic input output, assertions
- \in examples
+ \in examples [ok,wip]
   \make option -k keep, to later inspect
    \make the example script -f option to save to file and make executable
     \record script that will create an example definition
