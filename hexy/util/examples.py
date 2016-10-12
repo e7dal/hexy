@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 # Part of hexy. See LICENSE file for full copyright and licensing details.
 
+#biotick: basic input output test via examples
+#you should have great expectations
+#(:. runnable examples for biotick testing  .:)
+#todo heredocs working: http://www.tldp.org/LDP/abs/html/here-docs.html
+
+
 EXAMPLES=[]
 
 def example(fun):
@@ -8,21 +14,26 @@ def example(fun):
  EXAMPLES.append({'name':fun.__name__,'fun':fun})
  return fun
 
-#(:. runnable examples for biotick testing  .:)
-#todo heredocs working: http://www.tldp.org/LDP/abs/html/here-docs.html
-
-
 EXAMPLE_TEMPLATE="""#name of example:{name}
 #explanation (should be comments, starting with "#"
 {explain}
 
+#first create an examples directory
+if [ ! -d ./hexamples ];then
+ mkdir ./hexamples
+ echo "created ./hexamples for temporary example files"
+#else: 
+# echo "using ./hexamples for temporary example files"
+fi
+
+
 # to try the example run:
 # $ {full_cmd}
 
-{full_cmd}  > example_cmd_{name}.out         #todo STDERR
+{full_cmd}  > ./hexamples/example_cmd_{name}_result.out         #todo STDERR
 
 #should show:
-cat << "END_OF_EXAMPLE"  > expect_example_cmd_{name}.out
+cat << "END_OF_EXAMPLE"  > ./hexamples/example_cmd_{name}_expect.out
 {expected_output}
 END_OF_EXAMPLE
 
@@ -32,7 +43,7 @@ END_OF_EXAMPLE
 # todo check all: loop over all examples like above
 
 #the hexy biot(basic input output test) is just a simple diff:
-res=(diff expect_example_cmd_{name}.out  example_cmd_{name}.out)
+res=(diff ./hexamples/example_cmd_{name}_expect.out  ./hexamples/example_cmd_{name}_result.out)
 ret=$?
 if [ $ret -eq 0 ]; then
     echo "OK: {name}"
@@ -40,6 +51,8 @@ fi
 if [ $ret -ne 0 ]; then
     echo $res
     echo "NO: {name}"
+    hexy --version
+    python --version
 fi
 #todo:red/green colors in check result
 """
