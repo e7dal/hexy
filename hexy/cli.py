@@ -161,8 +161,7 @@ class ComplexCLI(click.MultiCommand):
 @click.version_option(metadata.version)
 @click.pass_context
 def cli(ctx, config, verbose, barverbose, profile):
-    """ hexy, hexagonol ascii drawing
-    """
+    """ hexy, hexagonal ascii drawing """
     cis = ctx.invoked_subcommand
 
     HEXY_CLI_GLOBALS['profiling'] = profile
