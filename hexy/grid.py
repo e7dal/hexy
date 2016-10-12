@@ -93,9 +93,9 @@ def fill(HG,l,c='X'):
 def spoint(x,y,HG,c,X,Y):
  deb('spoint',x,y,c)
  x,y=x-1,y-1
- xc,yc=int(y/Y),int(x/Y) #correction
- xc,yc=xc*Y,yc*X#correction
- x,y=x+xc,y+yc           #correction
+ #xc,yc=int(y/Y),int(x/Y) #correction
+ #xc,yc=xc*Y,yc*X#correction
+ #x,y=x+xc,y+yc           #correction
  x,y=x%(2*X),y%Y
  HG[y][x]=c
  return HG
