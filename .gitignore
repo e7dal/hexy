@@ -65,3 +65,6 @@ target/
 #Behave workdir
 __WORKDIR__
 rerun.featureset
+
+#hexy
+hexamples/
