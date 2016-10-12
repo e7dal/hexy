@@ -124,5 +124,6 @@
 
 \ coding style
  \ style no tabs
-  \ tab to one space
+  \ tab to one space 
+   \ ag "\ \" and replace multiple spaces
   
