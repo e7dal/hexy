@@ -11,12 +11,12 @@ from .. import Hexy
 @click.option('--xsize',
               '-x',
               type=int,
-              default=7,
+              default=10,
               help='show the example with the name')
 @click.option('--ysize',
               '-y',
               type=int,
-              default=4,
+              default=10,
               help='show the example with the name')
 @click.option('--xpos',
               '-i',
