@@ -2,6 +2,7 @@
 # Part of hexy. See LICENSE file for full copyright and licensing details.
 
 EXAMPLES=[]
+
 def example(fun):
  global EXAMPLES
  EXAMPLES.append({'name':fun.__name__,'fun':fun})
@@ -10,16 +11,48 @@ def example(fun):
 #(:. runnable examples for biotick testing  .:)
 #todo heredocs working: http://www.tldp.org/LDP/abs/html/here-docs.html
 
-@example
-def get_example_cmd_start():
- """an example:starting"""
- return  """# starting
-# $ hexy 
 
-hexy  > example_cmd_start.out         #todo STDERR
+EXAMPLE_TEMPLATE="""#name of example:{name}
+#explanation (should be comments, starting with "#"
+{explain}
+
+# to try the example run:
+# $ {full_cmd}
+
+{full_cmd}  > example_cmd_{name}.out         #todo STDERR
+
 #should show:
-cat << "END_OF_EXAMPLE"  > expect_example_cmd_start.out
-Usage: hexy [OPTIONS] COMMAND [ARGS]...
+cat << "END_OF_EXAMPLE"  > expect_example_cmd_{name}.out
+{expected_output}
+END_OF_EXAMPLE
+
+#check  and test example like:
+# $ hexy examples -n {name}|bash
+
+# todo check all: loop over all examples like above
+
+#the hexy biot(basic input output test) is just a simple diff:
+res=(diff expect_example_cmd_{name}.out  example_cmd_{name}.out)
+ret=$?
+if [ $ret -eq 0 ]; then
+    echo "OK: {name}"
+fi
+if [ $ret -ne 0 ]; then
+    echo $res
+    echo "NO: {name}"
+fi
+#todo:red/green colors in check result
+"""
+
+
+
+@example
+def example_cmd_start():
+ """an example:starting"""
+ name="start"
+ explain="#starting the hexy cli tool"
+ full_cmd="hexy"
+ expected_output="""Usage: hexy [OPTIONS] COMMAND [ARGS]...
 
   hexy, hexagonal ascii drawing
 
@@ -37,24 +70,35 @@ Commands:
   grid      Show empty grid in hexy
   manual    Shows the man page packed inside the hexy tool
   read      Read ascii grid into an hexy grid
-END_OF_EXAMPLE
-
-#check  and test example like:
-# $ hexy exmamples -n example_cmd_start|bash
-
-#the biot test is just a simple diff:
-res=(diff expect_example_cmd_start.out  example_cmd_start.out)
-ret=$?
-if [ $ret -eq 0 ]; then
-    echo "OK: example_cmd_start"
-fi
-if [ $ret -ne 0 ]; then
-    echo $res
-    echo "NO: example_cmd_start"
-fi
 """
+ res=EXAMPLE_TEMPLATE.format(name=name,
+                             explain=explain,
+                             full_cmd=full_cmd,
+                             expected_output=expected_output)
+ return res
+
 
 @example
+def example_cmd_grid_default():
+ """an example: hexy grid, with default values"""
+ name="grid"
+ explain="#hexy grid, with default values"
+ full_cmd="hexy grid"
+ expected_output=""":|1 2 3 4 5 6 7 |:
+:|______________|:
+:|. . . . . . . |:1
+:| . . . . . . .|:2
+:|. . . . . . . |:3
+:| . . . . . . .|:4
+:|______________|:
+:| 1 2 3 4 5 6 7|:
+"""
+ res=EXAMPLE_TEMPLATE.format(name=name,
+                             explain=explain,
+                             full_cmd=full_cmd,
+                             expected_output=expected_output)
+ return res
+
 def get_example_cmd_grid_default():
  """an example: hexy grid, with default values"""
  return  """# starting
