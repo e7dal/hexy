@@ -8,6 +8,7 @@
 
 \itui:ipython
  \completion
+  \interactive via input()
 \bash completion
 \fish completion
 
