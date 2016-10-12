@@ -1,4 +1,8 @@
 \add bio assertion, basic input output, assertions
+ \in examples
+  \make option -k keep, to later inspect
+   \make the example script -f option to save to file and make executable
+    \record script that will create an example definition
 
 \make cursor characters with - and |, just two dimensional
 \make cursor blink
@@ -22,9 +26,9 @@
    \ conditional
     \ function
 
-\webui:svg,pyvg...
+\ webui:svg,pyvg,d3js etc
 
- \draw      point xy
+ \ draw     point xy
   \         line xy X/x/Y/y/Z/z size
    \
     \       shapes: hexagon [ok]
@@ -34,33 +38,36 @@
         \           ngon
          \          circle
 	  \         tree (recursion!!)
-\draw fill for shapes :character
+\ draw fill for shapes :character
  \         string(bubble,dialog)
   \        stream/file
 
 \ use nav characters s,S: s=+ S=-
- \ s:x,y,z
-  \S:X,Y,Z
+ \  s:x,y,z
+  \ S:X,Y,Z
+
 \ optional: use center character no nav
  \ like h
   \    y u
    \  g h j
     \  v b
 
-\torus correction: 
- X=12
- x=45        #3*12 +9
- yc=int(X/x) #3
- x=x%X       #9
- y=yc+y%Y   
-\ torus mode
- \ rectangular or z->z,y->y,x->x
-  \ custom function : bubble rules like
+\ torus correction , obsolete, maybe better name "effect" instead of correction
+ \        X=12
+  \       x=45        #3*12 +9
+   \      yc=int(X/x) #3
+    \     x=x%X       #9
+     \    y=yc+y%Y   
 
-\also keep the negatives in mind.
+\ torus mode (default on)
+ \ option to disable
+  \ rectangular or z->z,y->y,x->x
+   \ custom function : bubble rules like
+
+\ also keep the negatives in mind.
 
 
-\use spoints in istead of the named line funtions for x,y,z
+\ use spoints in instead of the named line funtions for x,y,z
 
 
 
@@ -71,28 +78,28 @@
     \ n:next
      \ m:meta, control and cursors,etc
 
-\in show order layers, enable disable
+\ in show order layers, enable disable
 
-\instead of layers:seti/add cell overlays
+\ instead of layers:set/add cell overlays
 
-\read
+\ read
  \  read from output into grid
   \ for easy re-editing and festing
    \   hexy draw -x 3 -y 3|hexy read -
     \  read:x=3
      \ read:y=3
 
-\strip
- \strip the
-  \-borders
-   \-rulers
-    \-grid
+\ strip
+ \ strip the
+  \   -borders
+   \  -rulers
+    \ -grid
 
 
-\hexy progress bars
+\ hexy progress bars
 
 
-\fill hexcell basdd on fuctions of ...(x,y,z)
+\ fill hexcell basdd on fuctions of ...(x,y,z)
  \ ... like sum
   \         prod
    \        sin,cos,tan
@@ -115,3 +122,7 @@
         \ local loop detection
          \ editor 
 
+\ coding style
+ \ style no tabs
+  \ tab to one space
+  
