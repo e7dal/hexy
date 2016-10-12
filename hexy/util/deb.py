@@ -1,9 +1,9 @@
-import arrow
+import time
 
 _DEB=False
 
 def deb(*a):
- if debget(): print(arrow.now(),a)
+ if debget(): print(time.clock(),a)
 
 def debset(d):
  global _DEB

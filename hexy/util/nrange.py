@@ -1,4 +1,3 @@
-import arrow
 from .deb import deb,debset
 
 def nrange(i,j=None,step=1):
