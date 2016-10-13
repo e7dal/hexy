@@ -96,6 +96,14 @@
     \ -grid
 
 
+\ ruler is now like "12345678901234567890123"
+ \ add ten's like   "         1         2   "
+  \ from the current colum: int(i/10) 
+   \ likewise for 100/1000/etc
+    \ options: 1,10,100
+     \ vertical, need to align before adding more grid "counts"
+      \ make a seperate ruler command, like show
+
 \ hexy progress bars
 
 
@@ -122,8 +130,28 @@
         \ local loop detection
          \ editor 
 
+\ utf8 characters  for drawing
+ \ config templates which can be used to choose a theme
+
+\ config project/: (pwd)/.hexy
+ \ user          : ~/.hexy
+  \ system       : /etc/hexy.cfg
+   \ --configfile: use provided file
+ 
 \ coding style
  \ style no tabs
   \ tab to one space 
    \ ag "\ \" and replace multiple spaces
-  
+
+\ development workflow
+ \ manage todo, via a tool,like todo-cli
+  \ dependencies between todo tasks
+   \ tree/tag  based
+    \ create branch (use gitflow)
+     \ create example from template (run created example script)
+      \ do something to make example run, an keep the other examples running
+       \ bioticks
+        \ update version
+         \ commit
+          \ push
+           \ pull request with working example
