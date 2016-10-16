@@ -1,26 +1,29 @@
-\add bio assertion, basic input output, assertions
- \in examples [ok,wip]
-  \make option -k keep, to later inspect
-   \make the example script -f option to save to file and make executable
-    \record script that will create an example definition
+\ add bio assertion, basic input output, assertions
+ \ in examples [ok,wip], fix, false positives
+  \ make option -k keep, to later inspect
+   \ make the example script -f option to save to file and make executable
+    \ record script that will create an example definition
 
-\make cursor characters with - and |, just two dimensional
-\make cursor blink
+\ make cursor characters with - and |, just two dimensional
+\ make cursor blink
 
 
-\tui:use term ,curtises or urwid or Own
+\ tui:use term ,curtises or urwid or Own
 
-\itui:ipython
- \completion
-  \interactive via input()
-\bash completion
-\fish completion
+\ itui:ipython
+ \ completion
+  \ interactive via input()
+   \ repl
+\completion
+ \ repl
+  \ fish completion
+   \ bash completion
 
-\hexy live edit shell
- \completion
-  \help
+\ hexy live edit shell
+ \ completion
+  \ help
 
-\colors
+\ colors
  \ single color
   \ range:rainbow,steel...
    \ conditional
@@ -88,6 +91,18 @@
    \   hexy draw -x 3 -y 3|hexy read -
     \  read:x=3
      \ read:y=3
+
+\ modify/alter/update
+ \ reorder
+  \ colums, from->to, insert(7,pop(3))
+   \ rows, from->to, insert(7,pop(3))
+    \ combination of rows,colums
+     \ conditions
+      \ custom functions
+
+\ transform
+ \ stretch/squeeze
+  \ rotate (steps of CCW 60 deg),ndeg
 
 \ strip
  \ strip the

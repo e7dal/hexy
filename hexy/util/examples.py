@@ -78,6 +78,7 @@ Options:
   --help                    Show this message and exit.
 
 Commands:
+  cursor    Add a cursor on point
   draw      Draw and show grid in hexy
   examples  Show example for doing some task in hexy
   grid      Show empty grid in hexy
@@ -112,33 +113,13 @@ def example_cmd_grid_default():
                              expected_output=expected_output)
  return res
 
-def get_example_cmd_grid_default():
- """an example: hexy grid, with default values"""
- return  """# starting
-$ hexy grid
-
-should show:
-
-:|1 2 3 4 5 6 7 |:
-:|______________|:
-:|. . . . . . . |:1
-:| . . . . . . .|:2
-:|. . . . . . . |:3
-:| . . . . . . .|:4
-:|______________|:
-:| 1 2 3 4 5 6 7|:
-
-"""
-
 @example
-def get_example_cmd_draw_default():
- """an example: hexy grid, with default values"""
- return  """# starting
-$ hexy draw
-
-should show:
-
-:|1 2 3 4 5 6 7 8 9 0 |:
+def example_cmd_draw_default():
+ """an example: hexy draw, with default values"""
+ name="draw"
+ explain="#hexy draw, with default values"
+ full_cmd="hexy draw"
+ expected_output=""":|1 2 3 4 5 6 7 8 9 0 |:
 :|____________________|:
 :|. . . . . . . . . . |:1
 :| . . . . . . . . . .|:2
@@ -152,18 +133,20 @@ should show:
 :| . . . . . . . . . .|:10
 :|____________________|:
 :| 1 2 3 4 5 6 7 8 9 0|:
-
 """
+ res=EXAMPLE_TEMPLATE.format(name=name,
+                             explain=explain,
+                             full_cmd=full_cmd,
+                             expected_output=expected_output)
+ return res
 
 @example
-def get_example_cmd_read_default():
- """an example: hexy grid, with default values"""
- return  """# starting
-$ hexy draw|hexy read
-
-should show:
-
-:|1 2 3 4 5 6 7 8 9 0 |:
+def example_cmd_read_default():
+ """an example: hexy read, with default values"""
+ name="read"
+ explain="#hexy read, with default values"
+ full_cmd="hexy draw|hexy read"
+ expected_output=""":|1 2 3 4 5 6 7 8 9 0 |:
 :|____________________|:
 :|. . . . . . . . . . |:1
 :| . . . . . . . . . .|:2
@@ -177,6 +160,40 @@ should show:
 :| . . . . . . . . . .|:10
 :|____________________|:
 :| 1 2 3 4 5 6 7 8 9 0|:
+"""
+ res=EXAMPLE_TEMPLATE.format(name=name,
+                             explain=explain,
+                             full_cmd=full_cmd,
+                             expected_output=expected_output)
+ return res
+
+@example
+def example_cmd_cursor_default():
+ """an example: hexy cursor, with default values"""
+ name="cursor"
+ explain="#hexy cursor, with default values"
+ full_cmd="hexy cursor"
+ expected_output=""":|1 2 3 4 5 6 7 8 9 0 |:
+:|1 2 3 4 5 6 7 8 9 0 |:
+:|____________________|:
+:|. . . . . . . . . . |:1
+:| .|. . . . . . . . .|:2
+:|._._. . . . . . . . |:3
+:| .|. . . . . . . . .|:4
+:|. . . . . . . . . . |:5
+:| . . . . . . . . . .|:6
+:|. . . . . . . . . . |:7
+:| . . . . . . . . . .|:8
+:|. . . . . . . . . . |:9
+:| . . . . . . . . . .|:10
+:|____________________|:
+:| 1 2 3 4 5 6 7 8 9 0|:
 
 """
+ res=EXAMPLE_TEMPLATE.format(name=name,
+                             explain=explain,
+                             full_cmd=full_cmd,
+                             expected_output=expected_output)
+ return res
+
 # vim: tabstop=1 expandtab shiftwidth=1 softtabstop=1

@@ -10,6 +10,7 @@ from .util.deb import deb,debset
 from .grid import grid_make, grid_show
 from .draw import grid_draw
 from .read import grid_read
+from .cursor import grid_cursor
 
 HEXY_START_ARROW=arrow.now()
 
@@ -39,11 +40,20 @@ class Hexy(object):
  def __init__(self,x=1,y=1):
   self.X=x
   self.Y=y
+  #cursor
+  self.cx=None
+  self.cy=None
+  self.cformat=None
   self.grid=grid_make(x,y)
  def show(self):
   grid_show(self.grid)
  def draw(self,xpos,ypos,size):
   grid_draw(self.grid,xpos,ypos,size,self.X,self.Y)
+ def cursor(self,xpos,ypos,cformat):
+  self.cx=xpos
+  self.cy=ypos
+  self.cformat=cformat
+  self.grid=grid_cursor(self.grid,xpos,ypos,cformat,self.X,self.Y)
  def read(self,fc=[]):
   g,x,y=grid_read(fc)
   self.X=x
