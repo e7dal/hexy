@@ -170,3 +170,5 @@
          \ commit
           \ push
            \ pull request with working example
+
+\ gitlab ci :http://192.168.122.208/help/ci/quick_start/README
