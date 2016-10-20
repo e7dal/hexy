@@ -7,7 +7,7 @@ import arrow
 
 from .util.bubble import Bubble
 from .util.deb import deb,debset
-from .grid import grid_make, grid_show
+from .grid import grid_make, grid_show, grid_set_point
 from .draw import grid_draw
 from .read import grid_read
 from .cursor import grid_cursor
@@ -54,6 +54,11 @@ class Hexy(object):
   self.cy=ypos
   self.cformat=cformat
   self.grid=grid_cursor(self.grid,xpos,ypos,cformat,self.X,self.Y)
+ def point(self,xpos,ypos,char):
+  #self.cx=xpos
+  #self.cy=ypos
+  #self.cformat=cformat
+  self.grid=grid_set_point(self.grid,xpos,ypos,char,self.X,self.Y)
  def read(self,fc=[]):
   g,x,y=grid_read(fc)
   self.X=x

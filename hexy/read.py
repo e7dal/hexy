@@ -28,13 +28,15 @@ def grid_read(fc=[]):
  x=0
  y=0
  g=[]
- for l in fc[2:-2]:
+ #for l in fc[2:-2]: # make sure the empty lines are stripped
+ for l in fc[2:-3]:
   deb('read line:>',l,len(l),'<')
   ls=l.strip()
   if ls!=l:deb('stripped',len(ls))
   r,x=make_row(ls)
   g.append(r)
   y+=1
+
  deb('read:res:', g,x,y)
  return g,x,y
 

@@ -100,6 +100,11 @@ def spoint(x,y,HG,c,X,Y):
  HG[y][x]=c
  return HG
 
+def grid_set_point(HG,x,y,c,X,Y):
+ return spoint(x,y,HG,c,X,Y)
+
+
+
 def add_one_with_dir(x,y,g,d,X,Y):
  c=''
  if d=='X':
