@@ -7,13 +7,12 @@ import arrow
 
 from .util.bubble import Bubble
 from .util.deb import deb,debset
-from .grid import grid_make, grid_show, grid_set_point
+from .grid import grid_make, grid_show, grid_set_point,grid_add_line
 from .draw import grid_draw
 from .read import grid_read
 from .cursor import grid_cursor
 
 HEXY_START_ARROW=arrow.now()
-
 
 from . import metadata
 
@@ -59,6 +58,12 @@ class Hexy(object):
   #self.cy=ypos
   #self.cformat=cformat
   self.grid=grid_set_point(self.grid,xpos,ypos,char,self.X,self.Y)
+ def line(self,xpos,ypos,chars,size,direction):
+  #self.cx=xpos
+  #self.cy=ypos
+  #self.cformat=cformat
+  self.grid=grid_add_line(self.grid,xpos,ypos,size,direction,chars,self.X,self.Y)
+  #self.grid=add_line_with_dir(x,y,g,size,direction,chars,X,Y)
  def read(self,fc=[]):
   g,x,y=grid_read(fc)
   self.X=x

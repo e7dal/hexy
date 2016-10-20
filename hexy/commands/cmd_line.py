@@ -7,7 +7,7 @@ from ..cli import pass_hexy
 from .. import Hexy
 
 @click.command('point',
-               short_help='Put a single point on a grid and show grid in hexy tool')
+               short_help='Put a single line with direction(xyz) and size in hexy')
 @click.option('--xsize',
               '-x',
               type=int,
@@ -28,21 +28,28 @@ from .. import Hexy
               type=int,
               default=3,
               help='set the y posistin for the point')
-@click.option('--char',
+@click.option('--size',
+              '-s',
+              type=int,
+              default=3,
+              help='set the size for the line')
+@click.option('--chars',
               '-c',
               type=str,
+              default='X',
+              help='the cycled character(s) to put in the given line from i,j')
+@click.option('--direction',
+              '-d',
+              type=str,
               default='x',
-              help='the character to put in the given point i,j')
+              help='the direction in positive: x,y,z or negative: X,Y,Z')
 @pass_hexy
-def cli(ctx, xsize,ysize,xpos,ypos,char):
- """Show example for doing some task in hexy(experimental)"""
+def cli(ctx, xsize,ysize,xpos,ypos,size,chars,direction):
+ """ Add a line with a direction and a string to get characters to put on line """
  ctx.say('grid', stuff=(xsize,ysize),verbosity=100)
- ctx.say('point',stuff=(xpos,ypos,char),verbosity=100)
- if len(char)>1:
-  ctx.mumble('point, the character is longer than one, using first char',verbosity=100)
-  char=char[0]
+ ctx.say('line',stuff=(xpos,ypos,size,direction,chars),verbosity=100)
 
  g=Hexy(x=xsize,y=ysize)
- g.point(xpos=xpos,ypos=ypos,char=char)
+ g.line(xpos=xpos,ypos=ypos,chars=chars,direction=direction,size=size)
  g.show()
   

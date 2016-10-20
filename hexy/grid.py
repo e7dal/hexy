@@ -1,8 +1,9 @@
 import arrow
 #from pprint import pprint as pp
 from operator import xor
+from itertools import cycle
 
-from .util.deb import debset,deb
+from .util.deb import debget,debset,deb
 from .util.nrange import nrange
 from .cell import F,e
 
@@ -105,39 +106,63 @@ def grid_set_point(HG,x,y,c,X,Y):
 
 
 
-def add_one_with_dir(x,y,g,d,X,Y):
+def add_one_with_dir(x,y,g,d,X,Y,char=''):
  c=''
+ if char:
+  c=char
  if d=='X':
   x+=2
-  c='_'
+  if not char:
+   c='_'
 
  if d=='x':
   x-=2
-  c='_'
+  #x+=2
+  if not char:
+   c='_'
 
  if d=='Y':
   x+=1
   y+=1
-  c='\\'
+  #x+=2
+  if not char:
+   c='\\'
 
  if d=='y':
   x-=1
   y-=1
-  c='\\'
+  #x+=2
+  if not char:
+   c='\\'
 
  if d=='Z':
   x-=1
   y+=1
-  c='/'
+  #x+=2
+  if not char:
+   c='/'
 
  if d=='z':
   x+=1
   y-=1
-  c='/'
+  #x+=2
+  if not char:
+   c='/'
  cell=F(c,x,y)
  #this will break the nice tri-symmetric grid
  #todo: make sure in future resetting to add the empty space back
  return spoint(x,y,g,cell,X,Y),x,y
+
+def grid_add_line(HG,x,y,size,direction,chars,X,Y):
+ ccycle=cycle(chars)
+ #DEB=debget()
+ #debset(True)
+ for i in range(size):
+  deb("i:",i,"size:",size)
+  #debset(DEB)
+  HG,x,y=add_one_with_dir(x,y,HG,direction,X,Y,next(ccycle))
+  show(HG,X,Y)
+ return HG
 
 if __name__=='__main__':
  g=grid(xsize=12,ysize=8)
