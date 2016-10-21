@@ -12,13 +12,18 @@ from ..util.examples import EXAMPLES as examples
               '-n',
               default=None,
               help='show the example with the name')
+@click.option('--showcmd',
+              '-c',
+              is_flag=True,
+              default=False,
+              help='show the command to run and check the example with the name')
 @click.option('--all',
               '-a',
               is_flag=True,
               default=False,
               help='show all the examples')
 @pass_hexy
-def cli(ctx, name,all):
+def cli(ctx, showcmd,name,all):
     """Show example for doing some task in hexy"""
     ctx.say('examples',stuff=examples, verbosity=1000)
 
@@ -37,6 +42,23 @@ def cli(ctx, name,all):
             click.echo("#"*80)
             click.echo()
         if not all and not name:
-            click.echo("available example: " + example['name'])
+            if showcmd:
+                click.echo("#####  to show full the example for "+example['name']+" just run:")
+                click.echo("####   hexy examples --name " + example['name'])
+                click.echo("###    to run the example as a test, pipe it to a shell:")
+                click.echo("##     hexy examples --name " + example['name'] +"|sh")
+                click.echo("#")
+            else:
+                click.echo("available example: " + example['name'])
+    if name and showcmd:
+        click.echo("#####  to show full the example for "+name+" just run:")
+        click.echo("####   hexy examples --name " + name)
+        click.echo("###    to run the example as a test, pipe it to a shell:")
+        click.echo("##     hexy examples --name " + name +"|sh")
+        click.echo("#")
+    if not all:
+        click.echo("###    to run all the example as tests, pipe it to a shell:")
+        click.echo("##     hexy examples --all|sh")
+        click.echo("#")
 
 
