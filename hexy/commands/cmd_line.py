@@ -55,6 +55,14 @@ def cli(ctx, xsize,ysize,xpos,ypos,size,chars,direction):
  animate=ctx.get_config('animate')
  interval=ctx.get_config('interval') or 0.1
  interval=float(interval)
+
+ showinfo=ctx.get_config('showinfo')
+ if showinfo:
+     showinfo=bool(int(ctx.get_config('showinfo')))
+ else:
+     showinfo=False
+ #print(showinfo) #fingers crossed
+
  cycledirection=ctx.get_config('cycledirection')
  clear=ctx.get_config('clear')
  if cycledirection:
@@ -76,7 +84,8 @@ def cli(ctx, xsize,ysize,xpos,ypos,size,chars,direction):
    click.clear()
    g.show()
    end=time.clock()
-   print('took:%.2f size:%d/%d interval:%.2f clear:%s direction:%s'%(end-start,i,size,interval,clear,direction))
+   if showinfo:
+       print('took:%.2f size:%d/%d interval:%.2f clear:%s direction:%s'%(end-start,i,size,interval,clear,direction))
  else:
    if len(direction)>1:
       direction=direction[0] #take the first when not animating

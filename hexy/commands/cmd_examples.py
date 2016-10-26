@@ -28,35 +28,35 @@ def cli(ctx, showcmd,name,all):
     ctx.say('examples',stuff=examples, verbosity=1000)
 
     for example in examples:
-        if all or (name and example['name'] == name):
-            if all:
-                ctx.say('example',stuff=example, verbosity=100)
-                name = example['name']
-            #click.echo_via_pager(example['fun']())
+        if all or name:
+            ename = example['name']
+            if name  and ename != name:
+                continue
+            ctx.say('example',stuff=example, verbosity=100)
             click.echo("#"*80)
-            click.echo("### start of hexy example: "+name)
+            click.echo("### start of hexy example: "+ename)
             click.echo("#"*80)
             click.echo(example['fun']())
             click.echo("#"*80)
-            click.echo("### end of hexy example: "+name)
+            click.echo("### end of hexy example: "+ename)
             click.echo("#"*80)
             click.echo()
         if not all and not name:
             if showcmd:
-                click.echo("#####  to show full the example for "+example['name']+" just run:")
-                click.echo("####   hexy examples --name " + example['name'])
-                click.echo("###    to run the example as a test, pipe it to a shell:")
-                click.echo("##     hexy examples --name " + example['name'] +"|sh")
-                click.echo("#")
+               click.echo("#####  to show full the example for "+example['name']+" just run:")
+               click.echo("####   hexy examples --name " + example['name'])
+               click.echo("###    to run the example as a test, pipe it to a shell:")
+               click.echo("##     hexy examples --name " + example['name'] +"|sh")
+               click.echo("#")
             else:
-                click.echo("available example: " + example['name'])
+               click.echo("available example: " + example['name'])
     if name and showcmd:
         click.echo("#####  to show full the example for "+name+" just run:")
         click.echo("####   hexy examples --name " + name)
         click.echo("###    to run the example as a test, pipe it to a shell:")
         click.echo("##     hexy examples --name " + name +"|sh")
         click.echo("#")
-    if not all:
+    if name and not all:
         click.echo("###    to run all the example as tests, pipe it to a shell:")
         click.echo("##     hexy examples --all|sh")
         click.echo("#")
