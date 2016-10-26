@@ -1,0 +1,10 @@
+#hexy -c interval 0.4 -c clear 1 -c cycledirection 1 -c animate 1 line -x 34 -y 34 -j16 -i 34 -c ".hello world! " -s 34 -d ZYXzyx   
+#hexy -c interval 0.4 -c clear 1 -c cycledirection 1 -c animate 1 line -x 16 -y 16 -j8 -i 8 -c ".hello! " -s 42 -d ZYXzyx
+
+asciinema rec hello_animated_line.asciinema.json
+asciinema play hello_animated_line.asciinema.json
+asciinema upload hello_animated_line.asciinema.json
+
+result can be seen on:
+https://asciinema.org/a/3nzwyg25f1fytg745dimx1kbx
+
