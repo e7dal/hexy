@@ -23,6 +23,10 @@ class F(C):
   self._pos=(x,y)
   self.set(s)
  def __str__(self): return self._str
+ def __repr__(self):
+  return "<hexy.cell.F '%s' pos:(%d,%d) #hist:%d >"%(self._str,self._pos[0],self._pos[1],len(self._hist))
+ def get(self):
+  return self._str
  def set(self,s='.',x=None,y=None):
   deb('F',s)
   self._str=s

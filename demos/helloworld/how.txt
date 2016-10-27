@@ -1,0 +1,7 @@
+for c in "X" "Y" "Z" "x" "y" "z" ;echo clear;hexy line -c "hello world" -x 42 -y 23 -i 42 -j 12 -s 11 -d $c;echo sleep 1;end > hexy.lines.sh
+cat hexy.lines.sh |sed  's#\(:\|.*|\|:.*\)#echo "\1"#' >hexy.lines_echos.sh
+#maybe a little bit more search and replace in vim
+#created a loop with less sleep time and stuffed in:show_hexy_lines.sh
+uploaded result to: https://asciinema.org/a/c46vaoamhlp0j45l5g2rpy005
+or run your self:
+./show_hexy_lines.sh

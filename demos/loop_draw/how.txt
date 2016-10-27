@@ -1,0 +1,10 @@
+#inside a recording:
+asciinema rec loop_draw_hexagon_one_to_ten.asciinema
+
+clear;for s in (seq 1 10);hexy draw -i 10 -j5 -s $s;sleep 0.3;clear;end
+
+asciinema play loop_draw_hexagon_one_to_ten.asciinema
+
+asciinema upload loop_draw_hexagon_one_to_ten.asciinema
+#to view online:
+#https://asciinema.org/a/cdclcybkh0jposgq84gt6ax7e

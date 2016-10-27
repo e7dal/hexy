@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 # Part of hexy. See LICENSE file for full copyright and licensing details.
-
+import time
+from itertools import cycle
 import click
 
 from ..cli import pass_hexy
 from .. import Hexy
+from ..util.nrange import nrange
 
 @click.command('point',
                short_help='Put a single line with direction(xyz) and size in hexy')
@@ -48,8 +50,45 @@ def cli(ctx, xsize,ysize,xpos,ypos,size,chars,direction):
  """ Add a line with a direction and a string to get characters to put on line """
  ctx.say('grid', stuff=(xsize,ysize),verbosity=100)
  ctx.say('line',stuff=(xpos,ypos,size,direction,chars),verbosity=100)
-
+ 
  g=Hexy(x=xsize,y=ysize)
- g.line(xpos=xpos,ypos=ypos,chars=chars,direction=direction,size=size)
- g.show()
-  
+ animate=ctx.get_config('animate')
+ interval=ctx.get_config('interval') or 0.1
+ interval=float(interval)
+
+ showinfo=ctx.get_config('showinfo')
+ if showinfo:
+     showinfo=bool(int(ctx.get_config('showinfo')))
+ else:
+     showinfo=False
+ #print(showinfo) #fingers crossed
+
+ cycledirection=ctx.get_config('cycledirection')
+ clear=ctx.get_config('clear')
+ if cycledirection:
+    cdirection=cycle(direction)
+ else:
+    cdirection=cycle(direction[0])  #fingers crossed
+
+
+ ctx.say('grid', stuff=(xsize,ysize),verbosity=100)
+ g=Hexy(x=xsize,y=ysize)
+ if animate:
+  for i in nrange(size):
+   start=time.clock()
+   if clear:
+    g=Hexy(x=xsize,y=ysize)
+   direction=next(cdirection)
+   g.line(xpos=xpos,ypos=ypos,chars=chars,direction=direction,size=i)
+   time.sleep(interval)
+   click.clear()
+   g.show()
+   end=time.clock()
+   if showinfo:
+       print('took:%.2f size:%d/%d interval:%.2f clear:%s direction:%s'%(end-start,i,size,interval,clear,direction))
+ else:
+   if len(direction)>1:
+      direction=direction[0] #take the first when not animating
+   g.line(xpos=xpos,ypos=ypos,chars=chars,direction=direction,size=size)
+   click.clear()
+   g.show()  

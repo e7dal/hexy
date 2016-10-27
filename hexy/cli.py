@@ -52,7 +52,7 @@ class HexyCli(Bubble):
                          verbosity=2)
 
         self.config = {}  # runtime config (dynamic via options)
-        self.cfg = {}     # static config
+        self.cfg = {}     # static config todo: yaml file
 
         self.set_verbose(verbose)
         self.set_verbose_bar(verbose_bar)
@@ -67,9 +67,16 @@ class HexyCli(Bubble):
 
     def set_config(self, key, value):
         self.config[key] = value
-        if self.verbose >= VERBOSE:
-            click.echo('  config[%s] = %s' % (key, value), file=sys.stderr)
+        self.say('set config[%s] = %s' % (key, value), verbosity=100)
 
+    def get_config(self, key):
+        if key in self.config:
+            value=self.config[key]
+            self.say(' get config[%s] = %s' % (key, value), verbosity=100)
+            return value
+        else:
+            self.cry('get config[%s], key does not exist, returning None' % (key))
+            return None
 
     def _say_color(self, msg, verbosity=0, stuff=None, fgc='green'):
         self._msg(msg=msg,
@@ -176,10 +183,11 @@ def cli(ctx, config, verbose, barverbose, profile):
 
     HEXY_CLI_GLOBALS['full_command'] = ' '.join(sys.argv)
 
-    for key, value in config:
-        ctx.obj.set_config(key, value)
-
     hexy_home_abs = os.path.abspath(os.getcwd())
     ctx.obj = HexyCli(home=hexy_home_abs,
                       verbose=verbose,
                       verbose_bar=barverbose)
+
+    for key, value in config:
+        ctx.obj.set_config(key, value)
+

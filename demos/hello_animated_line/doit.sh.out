@@ -1,284 +1,5 @@
-# -*- coding: utf-8 -*-
-# Part of hexy. See LICENSE file for full copyright and licensing details.
-
-#biotick: basic input output test via examples
-#you should have great expectations
-#(:. runnable examples for biotick testing  .:)
-#todo heredocs working: http://www.tldp.org/LDP/abs/html/here-docs.html
-
-
-EXAMPLES=[]
-
-def example(fun):
- global EXAMPLES
- EXAMPLES.append({'name':fun.__name__,'fun':fun})
- return fun
-
-EXAMPLE_TEMPLATE="""#name of example:{name}
-#explanation (should be comments, starting with "#"
-{explain}
-
-#first create an examples directory
-if [ ! -d ./hexamples ];then
- mkdir ./hexamples
- echo "created ./hexamples for temporary example files"
-#else: 
-# echo "using ./hexamples for temporary example files"
-fi
-
-
-# to try the example run:
-# $ {full_cmd}
-
-{full_cmd}  > ./hexamples/example_cmd_{name}_result.out         #todo STDERR
-
-#should show:
-cat << "END_OF_EXAMPLE"  > ./hexamples/example_cmd_{name}_expect.out
-{expected_output}
-END_OF_EXAMPLE
-
-#check  and test example like:
-# $ hexy examples -n {name}|bash
-
-# todo check all: loop over all examples like above
-
-#the hexy biot(basic input output test) is just a simple diff:
-res=$(diff ./hexamples/example_cmd_{name}_expect.out  ./hexamples/example_cmd_{name}_result.out)
-ret=$?
-if [ $ret -eq 0 ]; then
-    echo "OK: {name}"
-fi
-if [ $ret -ne 0 ]; then
-    echo $res
-    echo "NO: {name}"
-    hexy --version
-    python --version
-    echo side by side diff
-    #todo: meld, diff commandd
-    diff -W 160 -yd ./hexamples/example_cmd_{name}_expect.out  ./hexamples/example_cmd_{name}_result.out
-fi
-#todo:red/green colors in check result
-"""
-
-
-
-@example
-def example_cmd_start():
- """an example:starting"""
- name="start"
- explain="#starting the hexy cli tool"
- full_cmd="hexy"
- expected_output="""Usage: hexy [OPTIONS] COMMAND [ARGS]...
-
-  hexy, hexagonal ascii drawing
-
-Options:
-  -c, --config KEY VALUE    overrides a config key/value pair.
-  -v, --verbose INTEGER     sets verbose, bigger is more detail
-  -b, --barverbose INTEGER  sets a bar, only show messages up to the bar
-  -p, --profile             run hexy with profiling.
-  --version                 Show the version and exit.
-  --help                    Show this message and exit.
-
-Commands:
-  cursor    Add a cursor on point
-  draw      Draw and show grid in hexy
-  examples  Show example for doing some task in hexy
-  grid      Show empty grid in hexy
-  line      Put a single line with direction(xyz) and size in hexy
-  manual    Shows the man page packed inside the hexy tool
-  point     Put a single point on a grid and show grid in hexy tool
-  read      Read ascii grid into an hexy grid"""
- res=EXAMPLE_TEMPLATE.format(name=name,
-                             explain=explain,
-                             full_cmd=full_cmd,
-                             expected_output=expected_output)
- return res
-
-
-@example
-def example_cmd_grid_default():
- """an example: hexy grid, with default values"""
- name="grid"
- explain="#hexy grid, with default values"
- full_cmd="hexy grid"
- expected_output=""":|1 2 3 4 5 6 7 |:
-:|______________|:
-:|. . . . . . . |:1
-:| . . . . . . .|:2
-:|. . . . . . . |:3
-:| . . . . . . .|:4
-:|______________|:
-:| 1 2 3 4 5 6 7|:
-"""
- res=EXAMPLE_TEMPLATE.format(name=name,
-                             explain=explain,
-                             full_cmd=full_cmd,
-                             expected_output=expected_output)
- return res
-
-@example
-def example_cmd_point():
- """an example: hexy point"""
- name="point"
- explain="#hexy point"
- #full_cmd="hexy point -i 5 -j 5 -x 10 -y 10 -c e"
- full_cmd="hexy point -x 20 -y 20 -i 10 -j 10 -c erdal"
- expected_output=""":|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 |:
-:|________________________________________|:
-:|. . . . . . . . . . . . . . . . . . . . |:1
-:| . . . . . . . . . . . . . . . . . . . .|:2
-:|. . . . . . . . . . . . . . . . . . . . |:3
-:| . . . . . . . . . . . . . . . . . . . .|:4
-:|. . . . . . . . . . . . . . . . . . . . |:5
-:| . . . . . . . . . . . . . . . . . . . .|:6
-:|. . . . . . . . . . . . . . . . . . . . |:7
-:| . . . . . . . . . . . . . . . . . . . .|:8
-:|. . . . . . . . . . . . . . . . . . . . |:9
-:| . . . . e . . . . . . . . . . . . . . .|:10
-:|. . . . . . . . . . . . . . . . . . . . |:11
-:| . . . . . . . . . . . . . . . . . . . .|:12
-:|. . . . . . . . . . . . . . . . . . . . |:13
-:| . . . . . . . . . . . . . . . . . . . .|:14
-:|. . . . . . . . . . . . . . . . . . . . |:15
-:| . . . . . . . . . . . . . . . . . . . .|:16
-:|. . . . . . . . . . . . . . . . . . . . |:17
-:| . . . . . . . . . . . . . . . . . . . .|:18
-:|. . . . . . . . . . . . . . . . . . . . |:19
-:| . . . . . . . . . . . . . . . . . . . .|:20
-:|________________________________________|:
-:| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0|:
-"""
- res=EXAMPLE_TEMPLATE.format(name=name,
-                             explain=explain,
-                             full_cmd=full_cmd,
-                             expected_output=expected_output)
- return res
-
-@example
-def example_cmd_line():
- """an example: hexy line"""
- name="line"
- explain="#hexy line"
- full_cmd="hexy line -x 20 -y 20 -i 10 -j 10 -s 11 -c 'hello world' -d X"
- expected_output=""":|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 |:
-:|________________________________________|:
-:|. . . . . . . . . . . . . . . . . . . . |:1
-:| . . . . . . . . . . . . . . . . . . . .|:2
-:|. . . . . . . . . . . . . . . . . . . . |:3
-:| . . . . . . . . . . . . . . . . . . . .|:4
-:|. . . . . . . . . . . . . . . . . . . . |:5
-:| . . . . . . . . . . . . . . . . . . . .|:6
-:|. . . . . . . . . . . . . . . . . . . . |:7
-:| . . . . . . . . . . . . . . . . . . . .|:8
-:|. . . . . . . . . . . . . . . . . . . . |:9
-:| . . . . . h e l l o   w o r l d . . . .|:10
-:|. . . . . . . . . . . . . . . . . . . . |:11
-:| . . . . . . . . . . . . . . . . . . . .|:12
-:|. . . . . . . . . . . . . . . . . . . . |:13
-:| . . . . . . . . . . . . . . . . . . . .|:14
-:|. . . . . . . . . . . . . . . . . . . . |:15
-:| . . . . . . . . . . . . . . . . . . . .|:16
-:|. . . . . . . . . . . . . . . . . . . . |:17
-:| . . . . . . . . . . . . . . . . . . . .|:18
-:|. . . . . . . . . . . . . . . . . . . . |:19
-:| . . . . . . . . . . . . . . . . . . . .|:20
-:|________________________________________|:
-:| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0|:
-"""
- res=EXAMPLE_TEMPLATE.format(name=name,
-                             explain=explain,
-                             full_cmd=full_cmd,
-                             expected_output=expected_output)
- return res
-@example
-def example_cmd_draw_default():
- """an example: hexy draw, with default values"""
- name="draw"
- explain="#hexy draw, with default values"
- full_cmd="hexy draw"
- expected_output=""":|1 2 3 4 5 6 7 8 9 0 |:
-:|____________________|:
-:|. . . . . . . . . . |:1
-:| . . . . . . . . . .|:2
-:|. . _ _ _ . . . . . |:3
-:| . / . . \ . . . . .|:4
-:|. / . . . \ . . . . |:5
-:| .\. . . ./. . . . .|:6
-:|. .\_ _ _/. . . . . |:7
-:| . . . . . . . . . .|:8
-:|. . . . . . . . . . |:9
-:| . . . . . . . . . .|:10
-:|____________________|:
-:| 1 2 3 4 5 6 7 8 9 0|:
-"""
- res=EXAMPLE_TEMPLATE.format(name=name,
-                             explain=explain,
-                             full_cmd=full_cmd,
-                             expected_output=expected_output)
- return res
-
-@example
-def example_cmd_read_default():
- """an example: hexy read, with default values"""
- name="read"
- explain="#hexy read, with default values"
- full_cmd="hexy draw|hexy read"
- expected_output=""":|1 2 3 4 5 6 7 8 9 0 |:
-:|____________________|:
-:|. . . . . . . . . . |:1
-:| . . . . . . . . . .|:2
-:|. . _ _ _ . . . . . |:3
-:| . / . . \ . . . . .|:4
-:|. / . . . \ . . . . |:5
-:| .\. . . ./. . . . .|:6
-:|. .\_ _ _/. . . . . |:7
-:| . . . . . . . . . .|:8
-:|. . . . . . . . . . |:9
-:| . . . . . . . . . .|:10
-:|____________________|:
-:| 1 2 3 4 5 6 7 8 9 0|:
-"""
- res=EXAMPLE_TEMPLATE.format(name=name,
-                             explain=explain,
-                             full_cmd=full_cmd,
-                             expected_output=expected_output)
- return res
-
-@example
-def example_cmd_cursor_default():
- """an example: hexy cursor, with default values"""
- name="cursor"
- explain="#hexy cursor, with default values"
- full_cmd="hexy cursor"
- expected_output=""":|1 2 3 4 5 6 7 8 9 0 |:
-:|____________________|:
-:|. . . . . . . . . . |:1
-:| .|. . . . . . . . .|:2
-:|._._. . . . . . . . |:3
-:| .|. . . . . . . . .|:4
-:|. . . . . . . . . . |:5
-:| . . . . . . . . . .|:6
-:|. . . . . . . . . . |:7
-:| . . . . . . . . . .|:8
-:|. . . . . . . . . . |:9
-:| . . . . . . . . . .|:10
-:|____________________|:
-:| 1 2 3 4 5 6 7 8 9 0|:
-"""
- res=EXAMPLE_TEMPLATE.format(name=name,
-                             explain=explain,
-                             full_cmd=full_cmd,
-                             expected_output=expected_output)
- return res
-
-@example
-def example_cmd_line_animated_with_config():
- """an example: hexy line animated, with config arguments to main cli"""
- name="line_animated_with_config"
- explain="#hexy line, with animation for size and direction, clear and sleep will not be compared"
- full_cmd="hexy -c showinfo 0 -c interval 0.4 -c clear 1 -c cycledirection 1 -c animate 1 line -x 16 -y 16 -j8 -i 16 -c '.hello! ' -s 42 -d ZYXzyx"
- expected_output=""":|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
+make a line increasing in size and changing directions
+:|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
 :| . . . . . . . . . . . . . . . .|:2
@@ -299,6 +20,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.00 size:1/42 interval:0.40 clear:1 direction:Z
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -320,6 +42,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.00 size:2/42 interval:0.40 clear:1 direction:Y
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -341,6 +64,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.00 size:3/42 interval:0.40 clear:1 direction:X
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -362,6 +86,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.00 size:4/42 interval:0.40 clear:1 direction:z
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -383,6 +108,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.00 size:5/42 interval:0.40 clear:1 direction:y
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -404,6 +130,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.00 size:6/42 interval:0.40 clear:1 direction:x
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -425,6 +152,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.00 size:7/42 interval:0.40 clear:1 direction:Z
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -446,6 +174,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.00 size:8/42 interval:0.40 clear:1 direction:Y
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -467,6 +196,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.00 size:9/42 interval:0.40 clear:1 direction:X
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . ! . . . . |:1
@@ -488,6 +218,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.00 size:10/42 interval:0.40 clear:1 direction:z
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . ! . . . . . . . . . . . |:1
@@ -509,6 +240,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:11/42 interval:0.40 clear:1 direction:y
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -530,6 +262,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.00 size:12/42 interval:0.40 clear:1 direction:x
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -551,6 +284,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.00 size:13/42 interval:0.40 clear:1 direction:Z
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -572,6 +306,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.00 size:14/42 interval:0.40 clear:1 direction:Y
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -593,6 +328,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.00 size:15/42 interval:0.40 clear:1 direction:X
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . ! . . . . |:1
@@ -614,6 +350,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.00 size:16/42 interval:0.40 clear:1 direction:z
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . ! . . . . . . . . . . . |:1
@@ -635,6 +372,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.00 size:17/42 interval:0.40 clear:1 direction:y
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -656,6 +394,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.00 size:18/42 interval:0.40 clear:1 direction:x
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -677,6 +416,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.00 size:19/42 interval:0.40 clear:1 direction:Z
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -698,6 +438,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:20/42 interval:0.40 clear:1 direction:Y
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -719,6 +460,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:21/42 interval:0.40 clear:1 direction:X
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . ! . . . . |:1
@@ -740,6 +482,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:22/42 interval:0.40 clear:1 direction:z
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . ! . . . . . . . ! . . . |:1
@@ -761,6 +504,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:23/42 interval:0.40 clear:1 direction:y
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -782,6 +526,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:24/42 interval:0.40 clear:1 direction:x
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -803,6 +548,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:25/42 interval:0.40 clear:1 direction:Z
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -824,6 +570,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:26/42 interval:0.40 clear:1 direction:Y
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -845,6 +592,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:27/42 interval:0.40 clear:1 direction:X
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . ! . . . . . . . ! . . . . |:1
@@ -866,6 +614,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:28/42 interval:0.40 clear:1 direction:z
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . ! . . . . . . . ! . . . |:1
@@ -887,6 +636,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:29/42 interval:0.40 clear:1 direction:y
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -908,6 +658,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:30/42 interval:0.40 clear:1 direction:x
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -929,6 +680,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:31/42 interval:0.40 clear:1 direction:Z
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -950,6 +702,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:32/42 interval:0.40 clear:1 direction:Y
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -971,6 +724,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:33/42 interval:0.40 clear:1 direction:X
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . ! . . . . . . . ! . . . . |:1
@@ -992,6 +746,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:34/42 interval:0.40 clear:1 direction:z
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . ! . . . . . . . ! . . . |:1
@@ -1013,6 +768,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:35/42 interval:0.40 clear:1 direction:y
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -1034,6 +790,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:36/42 interval:0.40 clear:1 direction:x
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -1055,6 +812,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:37/42 interval:0.40 clear:1 direction:Z
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -1076,6 +834,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:38/42 interval:0.40 clear:1 direction:Y
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -1097,6 +856,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:39/42 interval:0.40 clear:1 direction:X
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . ! . . . . . . . ! . . . . |:1
@@ -1118,6 +878,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:40/42 interval:0.40 clear:1 direction:z
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . ! . . . . . . . ! . . . |:1
@@ -1139,6 +900,7 @@ def example_cmd_line_animated_with_config():
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
 
+took:0.01 size:41/42 interval:0.40 clear:1 direction:y
 :|1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 |:
 :|________________________________|:
 :|. . . . . . . . . . . . . . . . |:1
@@ -1159,10 +921,5 @@ def example_cmd_line_animated_with_config():
 :| . . . . . . . . . . . . . . . .|:16
 :|________________________________|:
 :| 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6|:
-"""
- res=EXAMPLE_TEMPLATE.format(name=name,
-                             explain=explain,
-                             full_cmd=full_cmd,
-                             expected_output=expected_output)
- return res
-# vim: tabstop=1 expandtab shiftwidth=1 softtabstop=1
+
+took:0.01 size:42/42 interval:0.40 clear:1 direction:x
