@@ -7,7 +7,11 @@ import arrow
 
 from .util.bubble import Bubble
 from .util.deb import deb,debset
-from .grid import grid_make, grid_show, grid_set_point,grid_add_line
+from .grid import (grid_make,
+                   grid_show,
+                   grid_set_point,
+                   grid_add_line,
+                   grid_add_circle)
 from .draw import grid_draw
 from .read import grid_read
 from .cursor import grid_cursor
@@ -44,26 +48,27 @@ class Hexy(object):
   self.cy=None
   self.cformat=None
   self.grid=grid_make(x,y)
+
  def show(self):
   grid_show(self.grid)
+
  def draw(self,xpos,ypos,size):
   grid_draw(self.grid,xpos,ypos,size,self.X,self.Y)
+
  def cursor(self,xpos,ypos,cformat):
   self.cx=xpos
   self.cy=ypos
   self.cformat=cformat
   self.grid=grid_cursor(self.grid,xpos,ypos,cformat,self.X,self.Y)
+
  def point(self,xpos,ypos,char):
-  #self.cx=xpos
-  #self.cy=ypos
-  #self.cformat=cformat
   self.grid=grid_set_point(self.grid,xpos,ypos,char,self.X,self.Y)
+
+ def circle(self,xpos,ypos,rmin,rmax,char):
+  self.grid=grid_add_circle(self.grid,xpos,ypos,rmin,rmax,char,self.X,self.Y)
+
  def line(self,xpos,ypos,chars,size,direction):
-  #self.cx=xpos
-  #self.cy=ypos
-  #self.cformat=cformat
   self.grid=grid_add_line(self.grid,xpos,ypos,size,direction,chars,self.X,self.Y)
-  #self.grid=add_line_with_dir(x,y,g,size,direction,chars,X,Y)
  def read(self,fc=[]):
   g,x,y=grid_read(fc)
   self.X=x
@@ -73,16 +78,3 @@ class Hexy(object):
   #return g,x,y
   #return self
 
-if __name__=='__main__':
- h=Hexy(12,6)
- h.show()
- h.draw(2,2,3)
- h.show()
- hr=Hexy()
- fc=[':|1 |:',
-     ':|__|:',
-     ':|. |:1',
-     ':|__|:',
-     ':| 1|:']
- r=hr.read(fc)
- print(r)
