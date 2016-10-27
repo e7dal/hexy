@@ -1,7 +1,9 @@
-import arrow
 #from pprint import pprint as pp
 from operator import xor
 from itertools import cycle
+from math import hypot
+
+#import arrow
 
 from .util.deb import debget,debset,deb
 from .util.nrange import nrange
@@ -111,7 +113,19 @@ def spoint(x,y,HG,c,X,Y):
 def grid_set_point(HG,x,y,c,X,Y):
  return spoint(x,y,HG,c,X,Y)
 
-
+def grid_add_circle(HG,x,y,rmin,rmax,c,X,Y):
+ #print('todo:ciircle', rmin,rmax)
+ #rr=nrange(rmin,rmax) # make static list...
+ rr=[t for t in nrange(rmin,rmax)] # make static list...
+ for i in range(rmax*2):
+  for j in range(rmax):
+   if int(hypot(i,j)) in rr:
+    xc=0
+    HG=spoint(x+i,y+j,HG,c,X,Y)
+    HG=spoint(x+i,y-j,HG,c,X,Y)
+    HG=spoint(x-i,y+j,HG,c,X,Y)
+    HG=spoint(x-i,y-j,HG,c,X,Y)
+ return HG
 
 def add_one_with_dir(x,y,g,d,X,Y,char=''):
  c=''
