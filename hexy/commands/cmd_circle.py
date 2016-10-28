@@ -52,4 +52,6 @@ def cli(ctx, xsize,ysize,xpos,ypos,rmin,rmax,char):
  g=Hexy(x=xsize,y=ysize)
  g.circle(xpos=xpos,ypos=ypos,rmin=rmin,rmax=rmax,char=char)
  g.show()
+ g.reset()
+ g.show()
   

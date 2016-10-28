@@ -8,12 +8,14 @@ import arrow
 from .util.bubble import Bubble
 from .util.deb import deb,debset
 from .grid import (grid_make,
+                   grid_reset,
                    grid_show,
                    grid_set_point,
                    grid_add_line,
                    grid_add_circle)
 from .draw import grid_draw
 from .read import grid_read
+from .cslice import grid_cslice
 from .cursor import grid_cursor
 
 HEXY_START_ARROW=arrow.now()
@@ -55,6 +57,9 @@ class Hexy(object):
  def draw(self,xpos,ypos,size):
   grid_draw(self.grid,xpos,ypos,size,self.X,self.Y)
 
+ def reset(self):
+  self.grid=grid_reset(self.grid,self.X,self.Y)
+
  def cursor(self,xpos,ypos,cformat):
   self.cx=xpos
   self.cy=ypos
@@ -75,6 +80,12 @@ class Hexy(object):
   self.Y=y
   self.grid=g
   deb('read:',g,x,y)
+ def cslice(self,f,t,d):
+  self.grid=grid_cslice(self.grid,f,t,d)
+  #self.X=x
+  #self.Y=y
+  #self.grid=g
+  deb('slice:',self)
   #return g,x,y
   #return self
 

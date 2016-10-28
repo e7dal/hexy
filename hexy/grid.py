@@ -29,10 +29,30 @@ def grid(HG=[],xsize=7,ysize=5):
 def grid_make(x,y):
  return grid([],x,y)
 
+def greset(HG=[],xsize=7,ysize=5):
+ X=xsize
+ Y=ysize
+
+ for y in nrange(Y):
+  for x in nrange(X*2):
+   if xor(x%2,y%2):
+    HG[y-1][x-1]=e
+ return HG
+
+def grid_reset(HG,x,y):
+ return greset(HG,x,x)
+
 def show(HG,X,Y):
  i=1
  r=[]
+ X=len(HG[0])
+ #X=int(X/2)+2*(X%2)
+ xc=X%2
+ X=int(X/2)#+2*xc
+ Y=len(HG)
+
  xr=xruler(X,Y)
+
  r.append(b+"|"+xr+"|"+b)
  r.append(b+"|"+'_'*(len(xr))+"|"+b)
  for l in HG:

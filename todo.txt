@@ -173,5 +173,17 @@
 
 \ gitlab ci :http://192.168.122.208/help/ci/quick_start/README
 
+\ log , like grid read
+ \ reversse tail (HV,xyz)
+  \ stream
+   \ grep , highlight with hexagon bubbles and stats
+
+\ tabs , no tabs in the grid, NEVER
+ \ tabnanny, strict checks
+  \ tabs for completion,navigation
+   \ big fat warning: tabs will be treated  as a single space: "\t" >=>=> ' '
+    \ where >=>=> meaning string.replace()
+\ cry should raise the bar 
+
 \ circle make c like line, in a cycle
  \ this should always be the way.
