@@ -8,7 +8,7 @@ from ..cli import pass_hexy
 from .. import Hexy
 
 @click.command('cslice',
-               short_help='Select a slice out of the cycled grid (cilinder) ,in given direction')
+               short_help='Select a slice out of the cycled grid (cilinder), in given direction')
 @click.option('--gridfile',
               '-g',
               type=click.File('rb'),

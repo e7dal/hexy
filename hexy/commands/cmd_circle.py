@@ -43,15 +43,21 @@ from .. import Hexy
               type=str,
               default='x',
               help='the character to put in the given point i,j')
+@click.option('--greset',
+              '-g',
+              is_flag=True,
+              default=False,
+              help='resets the gridpoints in between, TODO move to main -c config')
 @pass_hexy
-def cli(ctx, xsize,ysize,xpos,ypos,rmin,rmax,char):
+def cli(ctx, xsize,ysize,xpos,ypos,rmin,rmax,char,greset):
  """Add a circle to the hexy grid with a range radius"""
  ctx.say('grid', stuff=(xsize,ysize),verbosity=100)
- ctx.say('circle',stuff=(xpos,ypos,rmin,rmax,char),verbosity=100)
+ ctx.say('circle',stuff=(xpos,ypos,rmin,rmax,char,greset),verbosity=100)
 
  g=Hexy(x=xsize,y=ysize)
  g.circle(xpos=xpos,ypos=ypos,rmin=rmin,rmax=rmax,char=char)
- g.show()
- g.reset()
+ #g.show()
+ if greset:
+  g.reset()
  g.show()
   

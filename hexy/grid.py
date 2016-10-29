@@ -3,20 +3,17 @@ from operator import xor
 from itertools import cycle
 from math import hypot
 
-#import arrow
-
 from .util.deb import debget,debset,deb
 from .util.nrange import nrange
 from .cell import F,e
 
 #todo put these in magic configuration/constants.
-b=':'
-GRIDCHAR='.'
+b=':'           # the border character
+#GRIDCHAR='.'    # the grid points
 
 def grid(HG=[],xsize=7,ysize=5):
  X=xsize
  Y=ysize
-
  for y in nrange(Y):
   HG.append([])
   for x in nrange(X*2):
@@ -32,7 +29,6 @@ def grid_make(x,y):
 def greset(HG=[],xsize=7,ysize=5):
  X=xsize
  Y=ysize
-
  for y in nrange(Y):
   for x in nrange(X*2):
    if xor(x%2,y%2):
@@ -137,10 +133,12 @@ def grid_add_circle(HG,x,y,rmin,rmax,c,X,Y):
  #print('todo:ciircle', rmin,rmax)
  #rr=nrange(rmin,rmax) # make static list...
  rr=[t for t in nrange(rmin,rmax)] # make static list...
- for i in range(rmax*2):
+ for i in range(rmax*4):
   for j in range(rmax):
+   #i=i*2
    if int(hypot(i,j)) in rr:
     xc=0
+    #i=i*2
     HG=spoint(x+i,y+j,HG,c,X,Y)
     HG=spoint(x+i,y-j,HG,c,X,Y)
     HG=spoint(x-i,y+j,HG,c,X,Y)
@@ -205,6 +203,3 @@ def grid_add_line(HG,x,y,size,direction,chars,X,Y):
   show(HG,X,Y)
  return HG
 
-if __name__=='__main__':
- g=grid(xsize=12,ysize=8)
- show(g)
