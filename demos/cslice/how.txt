@@ -1,0 +1,11 @@
+#to select the hexagon only out of a hexy drawing.
+
+hexy draw|hexy cslice -f 2 -t 12 -d H|hexy cslice -f 2 -t 7 -d V
+
+#asciinema rec cslice.json
+#asciinema play cslice.json
+#asciinema upload cslice.json
+
+#result can be seen on:
+#https://asciinema.org/a/.................
+
