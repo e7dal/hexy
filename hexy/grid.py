@@ -53,7 +53,7 @@ def show(HG,X,Y):
  r.append(b+"|"+'_'*(len(xr))+"|"+b)
  for l in HG:
   s=''
-  for c in l:  
+  for c in l:
    s+=str(c)
   r.append(b+"|"+ s + "|"+b+str(i))
   i+=1
@@ -70,7 +70,7 @@ def show(HG,X,Y):
 def grid_show(g):
  deb(g)
  X=len(g[0])/2
- Y=len(g) 
+ Y=len(g)
  r=show(g,X,Y)
  rs=''
  for l in r:
@@ -111,7 +111,7 @@ def fill(HG,l,c='X'):
 
 def spoint(x,y,HG,c,X,Y):
  deb('spoint',x,y,c)
- 
+
  x,y=x-1,y-1
  #xc,yc=int(y/Y),int(x/Y) #correction
  #xc,yc=xc*Y,yc*X#correction
@@ -133,12 +133,13 @@ def grid_add_circle(HG,x,y,rmin,rmax,c,X,Y):
  #print('todo:ciircle', rmin,rmax)
  #rr=nrange(rmin,rmax) # make static list...
  rr=[t for t in nrange(rmin,rmax)] # make static list...
- for i in range(rmax*4):
+ for i in range(rmax*2):
+  ih=int(i/2)+(i%2)
   for j in range(rmax):
-   #i=i*2
-   if int(hypot(i,j)) in rr:
-    xc=0
+   if int(hypot(ih,j)) in rr:
+    #xc=0
     #i=i*2
+    #i=int(i/2)
     HG=spoint(x+i,y+j,HG,c,X,Y)
     HG=spoint(x+i,y-j,HG,c,X,Y)
     HG=spoint(x-i,y+j,HG,c,X,Y)
