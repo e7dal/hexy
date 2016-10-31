@@ -7,4 +7,5 @@ asciinema play $afile
 echo to upload: asciinema upload  $afile
 
 #result can be seen on:
-#https://asciinema.org/a/ehwxmbjt2hydvx2g3b04sum9z
+https://asciinema.org/a/2b5o61e8y31y3178q1yl4jena
+
