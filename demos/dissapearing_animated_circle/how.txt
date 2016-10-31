@@ -1,0 +1,11 @@
+#create a circle that seems to dissapeer from the inside out
+# run $ hexy -c animate 1 -c clear 1 circle -x 40 -y 40 -i 40 -j 20 -r 1 -R 19 -c o -g
+
+afile=dissapearing_animated_circle.asciinema.json
+asciinema rec $afile
+asciinema play $afile
+echo to upload: asciinema upload  $afile
+
+result can be seen on:
+#https://asciinema.org/a/....
+
