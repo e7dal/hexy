@@ -6,6 +6,5 @@ asciinema rec $afile
 asciinema play $afile
 echo to upload: asciinema upload  $afile
 
-result can be seen on:
-#https://asciinema.org/a/....
-
+#result can be seen on:
+#https://asciinema.org/a/ehwxmbjt2hydvx2g3b04sum9z
