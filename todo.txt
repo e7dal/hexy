@@ -187,3 +187,8 @@
 
 \ circle make c like line, in a cycle
  \ this should always be the way.
+
+\ formatting: vim
+ \ # vim: tabstop=1 expandtab shiftwidth=1 softtabstop=1
+  \ editor config
+   \ ignore pep8 settings
