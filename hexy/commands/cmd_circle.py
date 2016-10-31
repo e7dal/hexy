@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 # Part of hexy. See LICENSE file for full copyright and licensing details.
 
+import time
 import click
 
 from ..cli import pass_hexy
 from .. import Hexy
+from ..util.nrange import nrange
 
 @click.command('circle',
                short_help='Put a fuzzy circle on an hexy  grid')
@@ -54,10 +56,24 @@ def cli(ctx, xsize,ysize,xpos,ypos,rmin,rmax,char,greset):
  ctx.say('grid', stuff=(xsize,ysize),verbosity=100)
  ctx.say('circle',stuff=(xpos,ypos,rmin,rmax,char,greset),verbosity=100)
 
+ animate=ctx.get_config('animate')
+ clear=ctx.get_config('clear')
+ ctx.say('grid', stuff=(xsize,ysize),verbosity=100)
  g=Hexy(x=xsize,y=ysize)
- g.circle(xpos=xpos,ypos=ypos,rmin=rmin,rmax=rmax,char=char)
- #g.show()
- if greset:
-  g.reset()
- g.show()
-  
+ if animate:
+  for i in nrange(rmin,rmax,1):
+   start=time.clock()
+   if clear:
+    g=Hexy(x=xsize,y=ysize)
+   g.circle(xpos=xpos,ypos=ypos,rmin=i,rmax=rmax,char=char)
+   if greset:
+     g.reset()
+   time.sleep(.1)
+   click.clear()
+   g.show()
+   end=time.clock()
+   print('took:%.2f size:%d'%(end-start,i))
+ else:
+   g.circle(xpos=xpos,ypos=ypos,rmin=rmin,rmax=rmax,char=char)
+   g.show()
+
