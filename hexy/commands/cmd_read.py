@@ -27,5 +27,5 @@ def cli(ctx, gridfile):
  fc=gridfile.readlines()
  r=hr.read(fc)
  ctx.say('read',stuff=r,verbosity=100)
- hr.show()
+ click.echo(hr.show())
   

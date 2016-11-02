@@ -44,5 +44,5 @@ def cli(ctx, xsize,ysize,xpos,ypos,char):
 
  g=Hexy(x=xsize,y=ysize)
  g.point(xpos=xpos,ypos=ypos,char=char)
- g.show()
+ click.echo(g.show())
   

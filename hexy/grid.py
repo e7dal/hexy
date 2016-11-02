@@ -75,7 +75,7 @@ def grid_show(g):
  rs=''
  for l in r:
   rs+=l+"\n"
- print(rs)
+ return rs
 
 def xruler(X,Y):
  x=[str(x) for x in nrange(9)]

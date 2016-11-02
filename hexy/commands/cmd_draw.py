@@ -50,10 +50,10 @@ def cli(ctx, xsize,ysize,xpos,ypos,size):
    g.draw(xpos=xpos,ypos=ypos,size=i)
    time.sleep(.1)
    click.clear()
-   g.show()
+   click.echo(g.show())
    end=time.clock()
    print('took:%.2f size:%d'%(end-start,i))
  else:
    g.draw(xpos=xpos,ypos=ypos,size=size)
-   g.show()
+   click.echo(g.show())
   

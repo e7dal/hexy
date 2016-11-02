@@ -82,7 +82,7 @@ def cli(ctx, xsize,ysize,xpos,ypos,size,chars,direction):
    g.line(xpos=xpos,ypos=ypos,chars=chars,direction=direction,size=i)
    time.sleep(interval)
    click.clear()
-   g.show()
+   click.echo(g.show())
    end=time.clock()
    if showinfo:
        print('took:%.2f size:%d/%d interval:%.2f clear:%s direction:%s'%(end-start,i,size,interval,clear,direction))
@@ -91,4 +91,4 @@ def cli(ctx, xsize,ysize,xpos,ypos,size,chars,direction):
       direction=direction[0] #take the first when not animating
    g.line(xpos=xpos,ypos=ypos,chars=chars,direction=direction,size=size)
    click.clear()
-   g.show()  
+   click.echo(g.show())

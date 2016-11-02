@@ -46,7 +46,7 @@ def cli(ctx, gridfile,fromindex,toindex,direction):
     ctx.cry('due to the nature of the hexy grid, in the H or x direction we cannot draw a ruler for uneven range, adjusting toindex+=1')
     toindex+=1
  s=hr.cslice(fromindex,toindex,direction)
- hr.show()
+ click.echo(hr.show())
 
 
 

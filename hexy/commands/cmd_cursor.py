@@ -28,8 +28,21 @@ def cli(ctx,xpos,ypos,cformat):
  """Show example for doing some task in hexy(experimental)"""
  ctx.say('cursor', stuff=(xpos,ypos),verbosity=100)
  #todo: this should be read, or at the very least kept in some object
+ c=''
+ 
  g=Hexy(10,10)
- #g.draw(1,1,3,'X')
  g.cursor(xpos=xpos,ypos=ypos,cformat=cformat)
- g.show()
- #todo: this should be written, or at the very least saved in some object
+ click.echo(g.show())
+ move=False
+ if not move:return
+ click.echo("please use  u,d,l,r (up,down,left,right for cursor movement")
+ while c!='q':
+  c=click.getchar()
+  if c=='u':ypos-=1
+  if c=='d':ypos+=1
+  if c=='l':xpos-=1
+  if c=='r':xpos+=1
+  g.reset()
+  g.cursor(xpos=xpos,ypos=ypos,cformat=cformat)
+  click.echo(g.show())
+  click.echo("cursor pos: xpos=%d ypos=%d cursor move:%s"%(xpos,ypos,c))

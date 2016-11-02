@@ -23,5 +23,5 @@ def cli(ctx, xsize,ysize):
  """Show example for doing some task in hexy(experimental)"""
  ctx.say('grid', stuff=(xsize,ysize),verbosity=100)
  g=Hexy(x=xsize,y=ysize)
- g.show()
+ click.echo(g.show())
   
