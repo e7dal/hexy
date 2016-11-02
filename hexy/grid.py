@@ -107,20 +107,20 @@ def fill(HG,l,c=' '):
   if isinstance(c,str):
    HG[y][x].set(c,x=x,y=y)
   else:
-   HG[y][x]=c
+   HG[y][x].set(c.get())
  return HG
 
-def spoint(x,y,HG,c,X,Y):
+def spoint(x,y,HG,c):
  deb('spoint',x,y,c)
-
- X=len(HG[0])
+ assert isinstance(c,Cell)
+ X=len(HG[0]) #len ..self
  Y=len(HG)
 
  XL=X-1
  YL=Y-1
- 
  x,y=x-1,y-1
- x,y=x%(2*X),y%Y
+ x,y=x%X,y%Y
+
  #shift up
  if x<0:x+=XL
  if y<0:y+=YL
@@ -129,21 +129,14 @@ def spoint(x,y,HG,c,X,Y):
  if y>XL:y-=YL
  HG[y][x].set(c.get())
  return HG
- 
- #if isinstance(HG[y][x],F):
- # if isinstance(c,F):
- #  HG[y][x].set(c.get())
- # else:
- #  HG[y][x].set(c) #fingers crossed, should be str
- #else:
- # HG[y][x]=c
- return HG
 
 def grid_set_point(HG,x,y,c,X,Y):
- return spoint(x,y,HG,c,X,Y)
+ c=Cell(c,x,y)
+ return spoint(x,y,HG,c)
 
 def grid_add_circle(HG,x,y,rmin,rmax,c,X,Y):
  rr=[t for t in nrange(rmin,rmax)] # make static list...
+ c=Cell(c,0,0)
  for i in range(rmax*2):
   ih=int(i/2)+(i%2)
   for j in range(rmax):
@@ -151,10 +144,10 @@ def grid_add_circle(HG,x,y,rmin,rmax,c,X,Y):
     #xc=0
     #i=i*2
     #i=int(i/2)
-    HG=spoint(x+i,y+j,HG,c,X,Y)
-    HG=spoint(x+i,y-j,HG,c,X,Y)
-    HG=spoint(x-i,y+j,HG,c,X,Y)
-    HG=spoint(x-i,y-j,HG,c,X,Y)
+    HG=spoint(x+i,y+j,HG,c)
+    HG=spoint(x+i,y-j,HG,c)
+    HG=spoint(x-i,y+j,HG,c)
+    HG=spoint(x-i,y-j,HG,c)
  return HG
 
 def add_one_with_dir(x,y,g,d,X,Y,char=''):
@@ -202,7 +195,7 @@ def add_one_with_dir(x,y,g,d,X,Y,char=''):
  cell=Cell(c,x,y)
  #this will break the nice tri-symmetric grid
  #todo: make sure in future resetting to add the empty space back
- return spoint(x,y,g,cell,X,Y),x,y
+ return spoint(x,y,g,cell),x,y
 
 def grid_add_line(HG,x,y,size,direction,chars,X,Y):
  ccycle=cycle(chars)

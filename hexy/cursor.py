@@ -35,10 +35,10 @@ def cursor(HG,x,y,f,X,Y):
  cxr=Cell(f[2],0,0)
  cyd=Cell(f[3],0,0,)
 
- HG=spoint(i-1,j,HG,cxl,X,Y)
- HG=spoint(i,j-1,HG,cyu,X,Y)
- HG=spoint(i+1,j,HG,cxr,X,Y)
- HG=spoint(i,j+1,HG,cyd,X,Y)
+ HG=spoint(i-1,j,HG,cxl)
+ HG=spoint(i,j-1,HG,cyu)
+ HG=spoint(i+1,j,HG,cxr)
+ HG=spoint(i,j+1,HG,cyd)
  return HG
 
 def grid_cursor(HG,x,y,f,X,Y):
@@ -50,9 +50,9 @@ def _clearcursor(HG):
  deb('clear a cursor in the empty space around point in cell x,y',cp)
  if not cp:return HG
  i,j=cp
- HG=spoint(i-1,j,HG,r1,0,0)
- HG=spoint(i,j-1,HG,r2,0,0)
- HG=spoint(i+1,j,HG,r3,0,0)
- HG=spoint(i,j+1,HG,r4,0,0)
+ HG=spoint(i-1,j,HG,r1)
+ HG=spoint(i,j-1,HG,r2)
+ HG=spoint(i+1,j,HG,r3)
+ HG=spoint(i,j+1,HG,r4)
  return HG
 
