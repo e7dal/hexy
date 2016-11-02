@@ -1,6 +1,7 @@
 from .util.deb import deb
 from .util.nrange import nrange
-from .cell import F,e,Cursor
+from .cell import Cell
+#F,e,Cursor
 from .grid import spoint
 
 CURSOR_POS=None
@@ -29,10 +30,10 @@ def cursor(HG,x,y,f,X,Y):
  i=x
  j=y
  scp(i,j)
- cxl=Cursor(f[0])
- cyu=Cursor(f[1])
- cxr=Cursor(f[2])
- cyd=Cursor(f[3])
+ cxl=Cell(f[0],0,0)
+ cyu=Cell(f[1],0,0)
+ cxr=Cell(f[2],0,0)
+ cyd=Cell(f[3],0,0,)
 
  HG=spoint(i-1,j,HG,cxl,X,Y)
  HG=spoint(i,j-1,HG,cyu,X,Y)
@@ -45,12 +46,13 @@ def grid_cursor(HG,x,y,f,X,Y):
 
 def _clearcursor(HG):
  cp=gcp()
+ r1=r2=r3=r4=Cell('r',0,0)
  deb('clear a cursor in the empty space around point in cell x,y',cp)
  if not cp:return HG
  i,j=cp
- HG=spoint(i-1,j,HG,e)
- HG=spoint(i,j-1,HG,e)
- HG=spoint(i+1,j,HG,e)
- HG=spoint(i,j+1,HG,e)
+ HG=spoint(i-1,j,HG,r1,0,0)
+ HG=spoint(i,j-1,HG,r2,0,0)
+ HG=spoint(i+1,j,HG,r3,0,0)
+ HG=spoint(i,j+1,HG,r4,0,0)
  return HG
 
