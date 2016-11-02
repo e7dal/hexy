@@ -52,7 +52,7 @@ class Hexy(object):
   self.grid=grid_make(x,y)
 
  def show(self):
-  grid_show(self.grid)
+  return grid_show(self.grid)
 
  def draw(self,xpos,ypos,size):
   grid_draw(self.grid,xpos,ypos,size,self.X,self.Y)
