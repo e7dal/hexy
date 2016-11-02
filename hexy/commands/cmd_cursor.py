@@ -33,8 +33,8 @@ def cli(ctx,xpos,ypos,cformat):
  g=Hexy(10,10)
  g.cursor(xpos=xpos,ypos=ypos,cformat=cformat)
  click.echo(g.show())
- move=False
- if not move:return
+ cursormove=ctx.get_config('cursormove')
+ if not cursormove:return
  click.echo("please use  u,d,l,r (up,down,left,right for cursor movement")
  while c!='q':
   c=click.getchar()
@@ -44,5 +44,6 @@ def cli(ctx,xpos,ypos,cformat):
   if c=='r':xpos+=1
   g.reset()
   g.cursor(xpos=xpos,ypos=ypos,cformat=cformat)
+  click.clear()
   click.echo(g.show())
-  click.echo("cursor pos: xpos=%d ypos=%d cursor move:%s"%(xpos,ypos,c))
+  click.echo("q: quit, cursor pos: xpos=%d ypos=%d cursor move:%s"%(xpos,ypos,c))
