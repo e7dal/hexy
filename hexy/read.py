@@ -1,11 +1,11 @@
-from .cell import F,e
+from .cell import Cell
 from .grid import grid, show
 from .util.deb import debset,deb
 
 #one=add_one_with_dir
-def cell(c):
- #if c=='.':return c
- return F(x,y,c)
+#def cell(c):
+# #if c=='.':return c
+# return Cell(c,x,y)
 
 def make_row(l):
  r=[]
@@ -14,7 +14,7 @@ def make_row(l):
   deb('make_row:curr:c',s)
   if l=="\n":break
   if s=='|' and l[x+3]==':':break
-  r.append(s)
+  r.append(Cell(s,0,0))   #todo add correct position
   deb('make_row:curr:r',r)
   x+=1
  return r,x
