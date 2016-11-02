@@ -192,3 +192,26 @@
  \ # vim: tabstop=1 expandtab shiftwidth=1 softtabstop=1
   \ editor config
    \ ignore pep8 settings
+
+\ use boltons
+ \ use colored
+  \ use clicl.getchar for navigation
+   \ use of external libs via "deb"
+    \ use of external libs via "deb"
+     \ outside utils every import
+
+\ create a repo like ascinema
+ \ record,play,upload
+
+
+\ hexy script commoand
+ \ interpret a string of hexy commands to create and modify a drawing
+  \ marginal hexy code : right aligned, somthing like this
+     """ :|1 2 3 |:    ##      \ x:3
+         :|------|:    ##       \ y:3
+         :|. . . |1    ##        \ draw
+         :| . . .|2    ##         \
+         ;|. . . |3    ##          \
+         :|------|     ##           \
+         :| 1 2 3|     ##            \"""
+
