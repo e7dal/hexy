@@ -1,4 +1,4 @@
-from .cell import F,e
+#from .cell import Cell
 from .grid import grid, show,add_one_with_dir
 from .util.deb import debset
 
