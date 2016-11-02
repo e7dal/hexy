@@ -70,10 +70,12 @@ def cli(ctx, xsize,ysize,xpos,ypos,rmin,rmax,char,greset):
      g.reset()
    time.sleep(.1)
    click.clear()
-   g.show()
+   click.secho(g.show())
    end=time.clock()
    print('took:%.2f size:%d'%(end-start,i))
  else:
    g.circle(xpos=xpos,ypos=ypos,rmin=rmin,rmax=rmax,char=char)
-   g.show()
+   # g.show()
+   click.secho(g.show())
+
 
