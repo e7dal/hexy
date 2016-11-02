@@ -1,7 +1,3 @@
-from .cell import F,e
-from .read import cell #is just F...,move todo:
-from .util.deb import debset,deb
-
 def grid_cslice(HG,f,t,d):
  if d=='V':
   ng=HG[f:t]
@@ -9,6 +5,8 @@ def grid_cslice(HG,f,t,d):
   ng=[]
   for r in HG:
    ng.append(r[f:t])
+ return ng
+
  #todo other directions,x,y,x, btw H=x
  #y=len(HG)
  #x=len(HG[0])
@@ -17,5 +15,4 @@ def grid_cslice(HG,f,t,d):
  #debset(True)
  #deb('slice:res:', ng,x,y)
  #debset(False)
- return ng
 
