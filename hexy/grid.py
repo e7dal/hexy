@@ -5,7 +5,8 @@ from math import hypot
 
 from .util.deb import debget,debset,deb
 from .util.nrange import nrange
-from .cell import F,e
+from .cell import Cell
+#F,e
 
 #todo put these in magic configuration/constants.
 b=':'           # the border character
@@ -18,9 +19,9 @@ def grid(HG=[],xsize=7,ysize=5):
   HG.append([])
   for x in nrange(X*2):
    if xor(x%2,y%2):
-    HG[y-1].append(e)
+    HG[y-1].append(Cell(' ',x=x,y=y))
    else:
-    HG[y-1].append(F(x=x,y=y))
+    HG[y-1].append(Cell('.',x=x,y=y))
  return HG
 
 def grid_make(x,y):
@@ -32,7 +33,7 @@ def greset(HG=[],xsize=7,ysize=5):
  for y in nrange(Y):
   for x in nrange(X*2):
    if xor(x%2,y%2):
-    HG[y-1][x-1]=e
+    HG[y-1][x-1]=Cell('.',x,y)
  return HG
 
 def grid_reset(HG,x,y):
@@ -42,7 +43,6 @@ def show(HG,X,Y):
  i=1
  r=[]
  X=len(HG[0])
- #X=int(X/2)+2*(X%2)
  xc=X%2
  X=int(X/2)#+2*xc
  Y=len(HG)
@@ -54,12 +54,13 @@ def show(HG,X,Y):
  for l in HG:
   s=''
   for c in l:
-   s+=str(c)
+   #s+=str(c)
+   s+=str(c.get())
   r.append(b+"|"+ s + "|"+b+str(i))
   i+=1
  r.append(b+"|"+'_'*(len(xr))+"|"+b)
  if Y%2==0 and X > 0:
-  r.append(b+"|"+str(e)+xr[0:-1]+"|"+b)
+  r.append(b+"| "+xr[0:-1]+"|"+b)
  else:
   if X==0:
    r.append(b+"||"+b)
@@ -100,7 +101,7 @@ def xruler(X,Y):
    xt=0
  return xl
 
-def fill(HG,l,c='X'):
+def fill(HG,l,c=' '):
  deb('fill',l,c)
  for x,y in l:
   if isinstance(c,str):
@@ -112,26 +113,36 @@ def fill(HG,l,c='X'):
 def spoint(x,y,HG,c,X,Y):
  deb('spoint',x,y,c)
 
+ X=len(HG[0])
+ Y=len(HG)
+
+ XL=X-1
+ YL=Y-1
+ 
  x,y=x-1,y-1
- #xc,yc=int(y/Y),int(x/Y) #correction
- #xc,yc=xc*Y,yc*X#correction
- #x,y=x+xc,y+yc           #correction
  x,y=x%(2*X),y%Y
- if isinstance(HG[y][x],F):
-  if isinstance(c,F):
-   HG[y][x].set(c.get())
-  else:
-   HG[y][x].set(c) #fingers crossed, should be str
- else:
-  HG[y][x]=c
+ #shift up
+ if x<0:x+=XL
+ if y<0:y+=YL
+ #shift down
+ if x>XL:x-=XL
+ if y>XL:y-=YL
+ HG[y][x].set(c.get())
+ return HG
+ 
+ #if isinstance(HG[y][x],F):
+ # if isinstance(c,F):
+ #  HG[y][x].set(c.get())
+ # else:
+ #  HG[y][x].set(c) #fingers crossed, should be str
+ #else:
+ # HG[y][x]=c
  return HG
 
 def grid_set_point(HG,x,y,c,X,Y):
  return spoint(x,y,HG,c,X,Y)
 
 def grid_add_circle(HG,x,y,rmin,rmax,c,X,Y):
- #print('todo:ciircle', rmin,rmax)
- #rr=nrange(rmin,rmax) # make static list...
  rr=[t for t in nrange(rmin,rmax)] # make static list...
  for i in range(rmax*2):
   ih=int(i/2)+(i%2)
@@ -188,7 +199,7 @@ def add_one_with_dir(x,y,g,d,X,Y,char=''):
   #x+=2
   if not char:
    c='/'
- cell=F(c,x,y)
+ cell=Cell(c,x,y)
  #this will break the nice tri-symmetric grid
  #todo: make sure in future resetting to add the empty space back
  return spoint(x,y,g,cell,X,Y),x,y
