@@ -5,6 +5,7 @@ from math import hypot
 
 from .util.deb import debget,debset,deb
 from .util.nrange import nrange
+from .util.colors import color,cycling_color
 from .cell import Cell
 #F,e
 
@@ -134,19 +135,21 @@ def grid_set_point(HG,x,y,c,X,Y):
  c=Cell(c,x,y)
  return spoint(x,y,HG,c)
 
-def grid_add_circle(HG,x,y,rmin,rmax,c,X,Y):
+def grid_add_circle(HG,x,y,rmin,rmax,chars,X,Y):
  rr=[t for t in nrange(rmin,rmax)] # make static list...
- c=Cell(c,0,0)
+ #ind=0
+ ccycle=cycle(chars)
  for i in range(rmax*2):
   ih=int(i/2)+(i%2)
   for j in range(rmax):
    if int(hypot(ih,j)) in rr:
-    #xc=0
-    #i=i*2
-    #i=int(i/2)
+    c=Cell(cycling_color(next(ccycle)),0,0)
     HG=spoint(x+i,y+j,HG,c)
+    c=Cell(cycling_color(next(ccycle)),0,0)
     HG=spoint(x+i,y-j,HG,c)
+    c=Cell(cycling_color(next(ccycle)),0,0)
     HG=spoint(x-i,y+j,HG,c)
+    c=Cell(cycling_color(next(ccycle)),0,0)
     HG=spoint(x-i,y-j,HG,c)
  return HG
 
@@ -204,7 +207,9 @@ def grid_add_line(HG,x,y,size,direction,chars,X,Y):
  for i in range(size):
   deb("i:",i,"size:",size)
   #debset(DEB)
-  HG,x,y=add_one_with_dir(x,y,HG,direction,X,Y,next(ccycle))
+  nc=next(ccycle)
+  cnc=cycling_color(nc)
+  HG,x,y=add_one_with_dir(x,y,HG,direction,X,Y,cnc)
   show(HG,X,Y)
  return HG
 
