@@ -61,7 +61,7 @@ def cli(ctx, xsize,ysize,xpos,ypos,rmin,rmax,char,greset):
  ctx.say('grid', stuff=(xsize,ysize),verbosity=100)
  g=Hexy(x=xsize,y=ysize)
  if animate:
-  for i in nrange(rmin,rmax,1):
+  for i in range(rmin,rmax-1,1):
    start=time.clock()
    if clear:
     g=Hexy(x=xsize,y=ysize)
