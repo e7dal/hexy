@@ -46,7 +46,7 @@ def grid_cursor(HG,x,y,f,X,Y):
 
 def _clearcursor(HG):
  cp=gcp()
- r1=r2=r3=r4=Cell('r',0,0)
+ r1=r2=r3=r4=Cell('.',0,0)
  deb('clear a cursor in the empty space around point in cell x,y',cp)
  if not cp:return HG
  i,j=cp
