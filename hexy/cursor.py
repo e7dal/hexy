@@ -26,7 +26,7 @@ def cursor(HG,x,y,f,X,Y):
  deb('make an a cursor in the empty space around point in cell x,y',x,y)
  #x,y=x-1,y-1
  assert len(f)==4
- HG=_clearcursor(HG)
+ #HG=_clearcursor(HG)
  i=x
  j=y
  scp(i,j)
