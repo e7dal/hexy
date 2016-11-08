@@ -2,6 +2,7 @@ import time
 from .util.deb import deb
 from .util.nrange import nrange
 GRIDCHAR='.'
+GRIDCHAR=' '
 
 class Cell(object):
  def __init__(self,s=GRIDCHAR,x=0,y=0):
@@ -15,7 +16,7 @@ class Cell(object):
   return self._str
  def getpos(self):
   return self._pos
- def set(self,s='.',x=None,y=None):
+ def set(self,s=GRIDCHAR,x=None,y=None):
   deb('F',s)
   self._str=s
   if isinstance(x,int) and isinstance(y,int):

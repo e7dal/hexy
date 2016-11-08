@@ -6,7 +6,7 @@ from math import hypot
 from .util.deb import debget,debset,deb
 from .util.nrange import nrange
 from .util.colors import color,cycling_color
-from .cell import Cell
+from .cell import Cell,GRIDCHAR
 #F,e
 
 #todo put these in magic configuration/constants.
@@ -22,7 +22,7 @@ def grid(HG=[],xsize=7,ysize=5):
    if xor(x%2,y%2):
     HG[y-1].append(Cell(' ',x=x,y=y))
    else:
-    HG[y-1].append(Cell('.',x=x,y=y))
+    HG[y-1].append(Cell(GRIDCHAR,x=x,y=y))
  return HG
 
 def grid_make(x,y):
@@ -34,7 +34,7 @@ def greset(HG=[],xsize=7,ysize=5):
  for y in nrange(Y):
   for x in nrange(X*2):
    if xor(x%2,y%2):
-    HG[y-1][x-1]=Cell('.',x,y)
+    HG[y-1][x-1]=Cell(GRIDCHAR,x,y)
  return HG
 
 def grid_reset(HG,x,y):
