@@ -74,18 +74,15 @@ class Hexy(object):
 
  def line(self,xpos,ypos,chars,size,direction):
   self.grid=grid_add_line(self.grid,xpos,ypos,size,direction,chars,self.X,self.Y)
+
  def read(self,fc=[]):
   g,x,y=grid_read(fc)
   self.X=x
   self.Y=y
   self.grid=g
   deb('read:',g,x,y)
+
  def cslice(self,f,t,d):
   self.grid=grid_cslice(self.grid,f,t,d)
-  #self.X=x
-  #self.Y=y
-  #self.grid=g
   deb('slice:',self)
-  #return g,x,y
-  #return self
 
