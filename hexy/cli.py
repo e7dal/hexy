@@ -6,8 +6,8 @@ import sys
 import arrow
 import click
 import pprint
-#from bubble import Bubble
 from .util.bubble import Bubble
+from .util.cfg import read_config
 
 from . import metadata
 from . import Hexy
@@ -47,8 +47,9 @@ class HexyCli(Bubble):
                          verbosity=2)
 
         self.config = {}  # runtime config (dynamic via options)
-        self.cfg = {}     # static config todo: yaml file
-
+        #self.cfg = {}     # static config todo: yaml file
+        self.cfg = read_config()
+        self.say('static config',stuff=self.cfg,verbosity=10)
         self.set_verbose(verbose)
         self.set_verbose_bar(verbose_bar)
 
@@ -67,7 +68,11 @@ class HexyCli(Bubble):
     def get_config(self, key):
         if key in self.config:
             value=self.config[key]
-            self.say(' get config[%s] = %s' % (key, value), verbosity=100)
+            self.say(' get dynamic config[%s] = %s' % (key, value), verbosity=100)
+            return value
+        elif key in self.cfg:
+            value=self.cfg[key]
+            self.say(' get static/default config[%s] = %s' % (key, value), verbosity=100)
             return value
         else:
             self.cry('get config[%s], key does not exist, returning None' % (key))

@@ -2,7 +2,6 @@
 """yaml based configuration, with a dotted access of configuration """
 import flatdict
 import yaml
-
 cfg=flatdict.FlatDict()
 cfg.set_delimiter('.')
 
