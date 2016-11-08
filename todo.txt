@@ -48,6 +48,7 @@
 \ use nav characters s,S: s=+ S=-
  \  s:x,y,z
   \ S:X,Y,Z
+   \ show current position, absolute(without modulos for torus), correct to slice with cycle number.
 
 \ optional: use center character no nav
  \ like h
@@ -60,7 +61,7 @@
   \       x=45        #3*12 +9
    \      yc=int(X/x) #3
     \     x=x%X       #9
-     \    y=yc+y%Y   
+     \    y=yc+y%Y
 
 \ torus mode (default on)
  \ option to disable
@@ -113,7 +114,7 @@
 
 \ ruler is now like "12345678901234567890123"
  \ add ten's like   "         1         2   "
-  \ from the current colum: int(i/10) 
+  \ from the current colum: int(i/10)
    \ likewise for 100/1000/etc
     \ options: 1,10,100
      \ vertical, need to align before adding more grid "counts"
@@ -143,7 +144,7 @@
       \ animate
        \ loop detection
         \ local loop detection
-         \ editor 
+         \ editor
 
 \ utf8 characters  for drawing
  \ config templates which can be used to choose a theme
@@ -152,10 +153,10 @@
  \ user          : ~/.hexy
   \ system       : /etc/hexy.cfg
    \ --configfile: use provided file
- 
+
 \ coding style
  \ style no tabs
-  \ tab to one space 
+  \ tab to one space
    \ ag "\ \" and replace multiple spaces
 
 \ development workflow
@@ -183,7 +184,7 @@
   \ tabs for completion,navigation
    \ big fat warning: tabs will be treated  as a single space: "\t" >=>=> ' '
     \ where >=>=> meaning string.replace()
-\ cry should raise the bar 
+\ cry should raise the bar
 
 \ circle make c like line, in a cycle
  \ this should always be the way.
