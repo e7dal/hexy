@@ -11,10 +11,7 @@ from .util.bubble import Bubble
 
 from . import metadata
 from . import Hexy
-#from .util.cfg import get_config
-#from .util.cli_misc import utf8_only, file_exists
 from .util.profiling import start_profile, write_profile
-
 
 # do not show if verbosity is above current verbose on Bubble(), todo USE magic
 VERBOSE = 0
@@ -28,8 +25,6 @@ CONTEXT_SETTINGS = dict(auto_envvar_prefix='HEXY')
 HEXY_CLI_GLOBALS={}
 GLOBAL_START_ARROW = arrow.now()
 HEXY_CLI_GLOBALS['start_arrow']=GLOBAL_START_ARROW
-
-#greeting = """Hexy, hexagonal ascii toolkit"""
 
 
 class HexyCli(Bubble):
