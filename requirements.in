@@ -1,2 +1,9 @@
 arrow
 click
+colored
+first
+flatdict
+#pip-tools==1.9.0
+#python-dateutil==2.5.3
+PyYAML
+six
