@@ -20,3 +20,5 @@
           \ \_ _ _ _ _ _ _ _ _/ /
            \_ _ _ _ _ _ _ _ _ _/
 todo...
+added   travis-ci.org/e7dal/hexy
+https://travis-ci.org/e7dal/hexy
