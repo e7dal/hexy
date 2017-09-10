@@ -22,3 +22,6 @@
 todo...
 added   travis-ci.org/e7dal/hexy
 https://travis-ci.org/e7dal/hexy
+
+.. image:: https://travis-ci.org/e7dal/hexy.svg?branch=master
+    :target: https://travis-ci.org/e7dal/hexy    :alt: Travis CI status
