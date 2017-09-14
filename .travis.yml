@@ -13,3 +13,4 @@ install:
 script:
   - touch .hexy_config.yaml
   - hexy
+  - hexy examples -a|sh
