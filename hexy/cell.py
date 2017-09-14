@@ -2,7 +2,7 @@ import time
 from .util.deb import deb
 from .util.nrange import nrange
 GRIDCHAR='.'
-GRIDCHAR=' '
+#GRIDCHAR=' ' #todo make config
 
 class Cell(object):
  def __init__(self,s=GRIDCHAR,x=0,y=0):
