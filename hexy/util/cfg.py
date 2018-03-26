@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """yaml based configuration, with a dotted access of configuration """
+import os
 import flatdict
 import yaml
 cfg=flatdict.FlatDict()
@@ -11,6 +12,11 @@ cfg['util.cfg.yaml_config_file']=config_yaml_file
 
 
 def read_config(yaml_cfg_file=config_yaml_file,default=cfg):
+ if not os.path.isfile(yaml_cfg_file):
+  fcfg = flatdict.FlatDict(default)
+  fcfg.set_delimiter('.')
+  return fcfg
+
  with open(yaml_cfg_file) as yfile:
   ycfg = yaml.load(yfile)
   fcfg = flatdict.FlatDict(ycfg)
