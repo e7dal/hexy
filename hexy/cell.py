@@ -18,6 +18,7 @@ class Cell(object):
   return self._pos
  def set(self,s=GRIDCHAR,x=None,y=None):
   deb('F',s)
+  if s=="\n":s=" "
   self._str=s
   if isinstance(x,int) and isinstance(y,int):
    self._pos=(x,y)
