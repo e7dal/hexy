@@ -9,13 +9,15 @@ cfg.set_delimiter('.')
 #todo export yaml file:
 config_yaml_file='./hexy_config.yaml'
 cfg['util.cfg.yaml_config_file']=config_yaml_file
+#cfg['util']['cfg'].yaml_config_file']=config_yaml_file
 
 
 def read_config(yaml_cfg_file=config_yaml_file,default=cfg):
  if not os.path.isfile(yaml_cfg_file):
-  fcfg = flatdict.FlatDict(default)
-  fcfg.set_delimiter('.')
-  return fcfg
+  #fcfg = flatdict.FlatDict(default)
+  
+  #fcfg.set_delimiter('.')
+  return default
 
  with open(yaml_cfg_file) as yfile:
   ycfg = yaml.load(yfile)
