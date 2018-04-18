@@ -3,8 +3,6 @@ python:
   - "2.7"
   - "3.5"
   - "3.6"
-  - "3.7-dev" # 3.7 development branch
-  - "nightly"
 # command to install dependencies
 install:
   - pip install -r travis_requirements.txt
