@@ -24,20 +24,3 @@ def grid_draw(g,x,y,s,X,Y):
  for i in range(s-1):
   g,x,y=one(x,y,g,'z',X,Y)
  return g,x,y
-
-if __name__=='__main__':
- g=grid()
- sx=14
- sy=4
-
- x=sx
- y=sy
- s=4 #size
- #inner
- g,x,y=grid_draw(g,x,y,s)
- x=sx-1
- y=sy-1
- s=s+1
- #outer
- g,x,y=grid_draw(g,x,y,s)
- show(g)
