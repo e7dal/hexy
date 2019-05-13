@@ -20,7 +20,7 @@ def read_config(yaml_cfg_file=config_yaml_file,default=cfg):
   return default
 
  with open(yaml_cfg_file) as yfile:
-  ycfg = yaml.load(yfile, ,yaml.BaseLoader)
+  ycfg = yaml.load(yfile, yaml.BaseLoader)
   fcfg = flatdict.FlatDict(ycfg)
   fcfg.set_delimiter('.')
   return fcfg
