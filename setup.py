@@ -13,8 +13,8 @@ except ImportError:
 readme = open('readme.txt').read()
 history = open('history.txt').read().replace('.. :changelog:', '')
 curr_path = os.path.dirname(os.path.realpath(__file__))
-deps = os.path.join(curr_path, 'requirements.txt')
-dev_deps = os.path.join(curr_path, 'dev_requirements.txt')
+deps = os.path.join(curr_path, 'requirements.in')
+dev_deps = os.path.join(curr_path, 'dev_requirements.in')
 
 requirements = open(deps).read()
 test_requirements = open(dev_deps).read()
