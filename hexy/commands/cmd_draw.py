@@ -40,6 +40,9 @@ def cli(ctx, xsize,ysize,xpos,ypos,size):
  ctx.say(stuff=ctx)
  animate=ctx.get_config('animate')
  clear=ctx.get_config('clear')
+ interval=ctx.get_config('interval') or 0.1
+ interval=float(interval)
+
  ctx.say('grid', stuff=(xsize,ysize),verbosity=100)
  g=Hexy(x=xsize,y=ysize)
  if animate:
@@ -48,7 +51,7 @@ def cli(ctx, xsize,ysize,xpos,ypos,size):
    if clear:
     g=Hexy(x=xsize,y=ysize)
    g.draw(xpos=xpos,ypos=ypos,size=i)
-   time.sleep(.1)
+   time.sleep(interval)
    click.clear()
    click.echo(g.show())
    end=time.clock()
