@@ -48,8 +48,8 @@ from ..util.nrange import nrange
 @click.option('--offset',
               '-o',
               type=int,
-              default=3,
-              help='r+offset instead of Rdefault offset=5')
+              default=0,
+              help='r+offset instead of R, default offset=0 =>use R')
 @pass_hexy
 def cli(ctx, xsize,ysize,xpos,ypos,rmin,rmax,char,offset):
  """Add a circle to the hexy grid with a range radius"""
