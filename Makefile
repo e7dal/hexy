@@ -37,7 +37,7 @@ lint:
 
 test:
 	#python setup.py test
-	echo "no unit tests yet :( use behave :)"
+	echo "hexy has built in examples, which are basic input output tests:)"
 	hexy examples -a | sh
 
 
