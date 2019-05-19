@@ -10,7 +10,7 @@ Information describing the project.
 package = 'hexy'
 project = 'cli tool to create hexagonal ascii based drawings'
 
-version = "2017.04.13"
+version = "2019.05.19"
 
 description =project
 authors = ['Erdal Yildiz']
