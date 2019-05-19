@@ -50,6 +50,7 @@ class Hexy(object):
   self.cy=None
   self.cformat=None
   self.grid=grid_make(x,y)
+  self.dumb=False   #does not renember between consequent method calls
 
  def show(self):
   return grid_show(self.grid)
@@ -73,6 +74,8 @@ class Hexy(object):
   self.grid=grid_add_circle(self.grid,xpos,ypos,rmin,rmax,char,self.X,self.Y)
 
  def line(self,xpos,ypos,chars,size,direction):
+  if self.dumb:
+   self.grid=grid_make(self.X,self.Y)
   self.grid=grid_add_line(self.grid,xpos,ypos,size,direction,chars,self.X,self.Y)
 
  def read(self,fc=[]):
@@ -86,3 +89,5 @@ class Hexy(object):
   self.grid=grid_cslice(self.grid,f,t,d)
   deb('slice:',self)
 
+def hexy():
+    return Hexy()
