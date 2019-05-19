@@ -60,5 +60,14 @@ def cycling_color(c,bg=True):
   C["FBG"]=fib(C["FN"])
   C["FN"]+=1
  if bg:
-  return bcolor(C["BGCURRCOLOR"],color(C["CURRCOLOR"],c))
+  #return bcolor(C["BGCURRCOLOR"],color(C["CURRCOLOR"],c))
+  return bcolor(C["BGCURRCOLOR"],c)
  return  color(C["CURRCOLOR"],c)
+
+CURRCOLORFUN=0
+def cycling_color_fun():
+ global CURRCOLORFUN
+ CURRCOLORFUN+=1
+ def colorer(c):return color(CURRCOLORFUN,c)
+ return colorer
+
