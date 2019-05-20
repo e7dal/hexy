@@ -1,2 +1,0 @@
-#just run:
-fish fishy.fish
