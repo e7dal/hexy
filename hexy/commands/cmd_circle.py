@@ -45,29 +45,29 @@ from ..util.nrange import nrange
               type=str,
               default='x',
               help='the character to put in the given point i,j')
-@click.option('--greset',
-              '-g',
-              is_flag=True,
-              default=False,
-              help='resets the gridpoints in between, TODO move to main -c config')
+@click.option('--offset',
+              '-o',
+              type=int,
+              default=0,
+              help='r+offset instead of R, default offset=0 =>use R')
 @pass_hexy
-def cli(ctx, xsize,ysize,xpos,ypos,rmin,rmax,char,greset):
+def cli(ctx, xsize,ysize,xpos,ypos,rmin,rmax,char,offset):
  """Add a circle to the hexy grid with a range radius"""
  ctx.say('grid', stuff=(xsize,ysize),verbosity=100)
- ctx.say('circle',stuff=(xpos,ypos,rmin,rmax,char,greset),verbosity=100)
+ ctx.say('circle',stuff=(xpos,ypos,rmin,rmax,char,offset),verbosity=100)
 
  animate=ctx.get_config('animate')
  clear=ctx.get_config('clear')
  ctx.say('grid', stuff=(xsize,ysize),verbosity=100)
  g=Hexy(x=xsize,y=ysize)
+ if offset:
+  rmax=rmin+offset
  if animate:
   for i in range(rmin,rmax-1,1):
    start=time.clock()
    if clear:
     g=Hexy(x=xsize,y=ysize)
    g.circle(xpos=xpos,ypos=ypos,rmin=i,rmax=rmax,char=char)
-   if greset:
-     g.reset()
    time.sleep(.1)
    click.clear()
    click.secho(g.show())
