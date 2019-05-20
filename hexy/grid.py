@@ -1,4 +1,3 @@
-#from pprint import pprint as pp
 from operator import xor
 from itertools import cycle
 from math import hypot
@@ -7,11 +6,11 @@ from .util.deb import debget,debset,deb
 from .util.nrange import nrange
 from .util.colors import color,cycling_color
 from .cell import Cell,GRIDCHAR
-#F,e
 
 #todo put these in magic configuration/constants.
-b=':'           # the border character
-#GRIDCHAR='.'    # the grid points
+#b=':'           # the border character
+bb=':|'           # the border character
+be='|:'           # the border character
 
 def grid(HG=[],xsize=7,ysize=5):
  X=xsize
@@ -40,6 +39,9 @@ def greset(HG=[],xsize=7,ysize=5):
 def grid_reset(HG,x,y):
  return greset(HG,x,x)
 
+def _bordered(s=''):return bb+s+be
+_b=_bordered
+
 def show(HG,X,Y):
  i=1
  r=[]
@@ -49,24 +51,22 @@ def show(HG,X,Y):
  Y=len(HG)
 
  xr=xruler(X,Y)
-
- r.append(b+"|"+xr+"|"+b)
- r.append(b+"|"+'_'*(len(xr))+"|"+b)
+ r.append(_b(xr))
+ r.append(_b('_'*(len(xr))))
  for l in HG:
   s=''
   for c in l:
-   #s+=str(c)
    s+=str(c.get())
-  r.append(b+"|"+ s + "|"+b+str(i))
+  r.append(_b(s)+str(i))
   i+=1
- r.append(b+"|"+'_'*(len(xr))+"|"+b)
+ r.append(_b('_'*(len(xr))))
  if Y%2==0 and X > 0:
-  r.append(b+"| "+xr[0:-1]+"|"+b)
+  r.append(_b(' '+xr[0:-1]))
  else:
   if X==0:
-   r.append(b+"||"+b)
+   r.append(_b())
   else:
-   r.append(b+"|"+xr+"|:"+b)
+   r.append(_b(xr))
  return r
 
 def grid_show(g):
@@ -208,7 +208,12 @@ def add_one_with_dir(x,y,g,d,X,Y,char=''):
  #todo: make sure in future resetting to add the empty space back
  return spoint(x,y,g,cell),x,y
 
-def grid_add_line(HG,x,y,size,direction,chars,X,Y):
+#def grid_add_line(HG,x,y,size,direction,chars,X,Y):
+def _get_dim(HG): return len(HG[1]),len(HG)
+def grid_add_line(HG,x,y,size,direction,chars,X=None,Y=None):
+ if not X:
+  X,Y=_get_dim(HG)
+ #print(x,y,size,direction,chars)
  ccycle=cycle(chars)
  #DEB=debget()
  #debset(True)
@@ -219,5 +224,21 @@ def grid_add_line(HG,x,y,size,direction,chars,X,Y):
   cnc=cycling_color(nc)
   HG,x,y=add_one_with_dir(x,y,HG,direction,X,Y,cnc)
   show(HG,X,Y)
- return HG
+ return HG,x,y
 
+def grid_add_hexagon(HG,x,y,size,chars=''):
+ ccycle=cycle(chars)
+ hexpath='XYZxyz'
+ z =( 0, 0)
+ xp=( 1, 0)
+ xm=(-1, 0)
+ yp=( 0, 1)
+ ym=( 0,-1)
+ adjust=[z,z,xp,xp,yp,xm]
+ #print(adjust)
+ #dcycle=cycle(hexpath)
+ for i in range(len(hexpath)):
+  xa,ya=adjust[i]
+  x+=xa
+  y+=ya
+  HG,x,y=grid_add_line(HG,x,y,size-1,hexpath[i],ccycle)
