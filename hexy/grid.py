@@ -5,7 +5,7 @@ from math import hypot
 
 from .util.deb import debget,debset,deb
 from .util.nrange import nrange
-from .util.colors import color,cycling_color
+from .util.colors import color,cycling_color,cycling_color_fun
 from .cell import Cell,GRIDCHAR
 #F,e
 
@@ -135,29 +135,22 @@ def grid_set_point(HG,x,y,c,X,Y):
  c=Cell(c,x,y)
  return spoint(x,y,HG,c)
 
-_hyp={}
-def hyp(a,b):
-   global _hyp
-   k='%d,%d'%(a,b)
-   if k in _hyp:return _hyp[k]
-   _hyp[k]=int(hypot(a,b))
-   return _hyp[k]
-
 def grid_add_circle(HG,x,y,rmin,rmax,chars,X,Y):
  rr=[t for t in nrange(rmin,rmax)] # make static list...
  #ind=0
  ccycle=cycle(chars)
+ cfun=cycling_color_fun()
  for i in range(rmax*2):
   ih=int(i/2)+(i%2)
   for j in range(rmax):
-   if hyp(ih,j) in rr:
-    c=Cell(cycling_color(next(ccycle)),0,0)
+   if int(hypot(ih,j)) in rr:
+    c=Cell(cfun(next(ccycle)),0,0)
     HG=spoint(x+i,y+j,HG,c)
-    c=Cell(cycling_color(next(ccycle)),0,0)
+    c=Cell(cfun(next(ccycle)),0,0)
     HG=spoint(x+i,y-j,HG,c)
-    c=Cell(cycling_color(next(ccycle)),0,0)
+    c=Cell(cfun(next(ccycle)),0,0)
     HG=spoint(x-i,y+j,HG,c)
-    c=Cell(cycling_color(next(ccycle)),0,0)
+    c=Cell(cfun(next(ccycle)),0,0)
     HG=spoint(x-i,y-j,HG,c)
  return HG
 
@@ -203,7 +196,7 @@ def add_one_with_dir(x,y,g,d,X,Y,char=''):
   #x+=2
   if not char:
    c='/'
- cell=Cell(cycling_color(c,bg=False),x,y)
+ cell=Cell(cycling_color(c),x,y)
  #this will break the nice tri-symmetric grid
  #todo: make sure in future resetting to add the empty space back
  return spoint(x,y,g,cell),x,y
