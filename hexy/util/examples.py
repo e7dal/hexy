@@ -91,7 +91,9 @@ Commands:
   line      Put a single line with direction(xyz) and size in hexy
   manual    Shows the man page packed inside the hexy tool
   point     Put a single point on a grid and show grid in hexy tool
-  read      Read ascii grid into an hexy grid"""
+  read      Read ascii grid into an hexy grid
+  rotate    Rotate a given amount of 90 degree turn"""
+
  res=EXAMPLE_TEMPLATE.format(name=name,
                              explain=explain,
                              full_cmd=full_cmd,
