@@ -155,47 +155,19 @@ def grid_add_circle(HG,x,y,rmin,rmax,chars,X,Y):
  return HG
 
 def add_one_with_dir(x,y,g,d,X,Y,char=''):
- c=''
- if char:
-  c=char
- if d=='X':
-  x+=2
-  if not char:
-   c='_'
+ dirs={}
+ dirs['X']={'xd': 2,'yd': 0,'c':'_'}
+ dirs['x']={'xd':-2,'yd': 0,'c':'_'}
+ dirs['Y']={'xd': 1,'yd': 1,'c':'\\'}
+ dirs['y']={'xd':-1,'yd':-1,'c':'\\'}
+ dirs['Z']={'xd':-1,'yd': 1,'c':'/'}
+ dirs['z']={'xd': 1,'yd':-1,'c':'/'}
+ x+=dirs[d]['xd']
+ y+=dirs[d]['yd']
+ c=char
+ if not char:
+  c=dirs[d]['c']
 
- if d=='x':
-  x-=2
-  #x+=2
-  if not char:
-   c='_'
-
- if d=='Y':
-  x+=1
-  y+=1
-  #x+=2
-  if not char:
-   c='\\'
-
- if d=='y':
-  x-=1
-  y-=1
-  #x+=2
-  if not char:
-   c='\\'
-
- if d=='Z':
-  x-=1
-  y+=1
-  #x+=2
-  if not char:
-   c='/'
-
- if d=='z':
-  x+=1
-  y-=1
-  #x+=2
-  if not char:
-   c='/'
  cell=Cell(cycling_color(c),x,y)
  #this will break the nice tri-symmetric grid
  #todo: make sure in future resetting to add the empty space back
