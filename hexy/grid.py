@@ -1,17 +1,28 @@
+#123456789012345678901234567890123456789012 #
 from operator import xor
 from itertools import cycle
 from math import hypot
-
+#123456789012345678901234567890123456789012 #
 from .util.deb import debget,debset,deb
 from .util.nrange import nrange
 from .util.colors import color,cycling_color,cycling_color_fun
 from .cell import Cell,GRIDCHAR
 
+#123456789012345678901234567890123456789012 #
 #todo put these in magic configuration/constants.
 #b=':'           # the border character
 bb=':|'           # the border character
 be='|:'           # the border character
 
+#123456789012345678901234567890123456789012 #
+dirs={}
+dirs['X']={'xd': 2,'yd': 0,'c':'_'}
+dirs['x']={'xd':-2,'yd': 0,'c':'_'}
+dirs['Y']={'xd': 1,'yd': 1,'c':'\\'}
+dirs['y']={'xd':-1,'yd':-1,'c':'\\'}
+dirs['Z']={'xd':-1,'yd': 1,'c':'/'}
+dirs['z']={'xd': 1,'yd':-1,'c':'/'}
+#123456789012345678901234567890123456789012 #
 def grid(HG=[],xsize=7,ysize=5):
  X=xsize
  Y=ysize
@@ -24,9 +35,11 @@ def grid(HG=[],xsize=7,ysize=5):
     HG[y-1].append(Cell(GRIDCHAR,x=x,y=y))
  return HG
 
+#123456789012345678901234567890123456789012 #
 def grid_make(x,y):
  return grid([],x,y)
 
+#123456789012345678901234567890123456789012 #
 def greset(HG=[],xsize=7,ysize=5):
  X=xsize
  Y=ysize
@@ -36,12 +49,14 @@ def greset(HG=[],xsize=7,ysize=5):
     HG[y-1][x-1]=Cell(GRIDCHAR,x,y)
  return HG
 
+#123456789012345678901234567890123456789012 #
 def grid_reset(HG,x,y):
  return greset(HG,x,x)
 
+#123456789012345678901234567890123456789012 #
 def _bordered(s=''):return bb+s+be
 _b=_bordered
-
+#123456789012345678901234567890123456789012 #
 def show(HG,X,Y):
  i=1
  r=[]
@@ -79,6 +94,7 @@ def grid_show(g):
   rs+=l+"\n"
  return rs
 
+#123456789012345678901234567890123456789012 #
 def xruler(X,Y):
  x=[str(x) for x in nrange(9)]
  xs=' '.join(x)
@@ -102,6 +118,7 @@ def xruler(X,Y):
    xt=0
  return xl
 
+#123456789012345678901234567890123456789012 #
 def fill(HG,l,c=' '):
  deb('fill',l,c)
  for x,y in l:
@@ -111,6 +128,7 @@ def fill(HG,l,c=' '):
    HG[y][x].set(c.get())
  return HG
 
+#123456789012345678901234567890123456789012 #
 def spoint(x,y,HG,c):
  deb('spoint',x,y,c)
  assert isinstance(c,Cell)
@@ -131,10 +149,12 @@ def spoint(x,y,HG,c):
  HG[y][x].set(c.get())
  return HG
 
+#123456789012345678901234567890123456789012 #
 def grid_set_point(HG,x,y,c,X,Y):
  c=Cell(c,x,y)
  return spoint(x,y,HG,c)
 
+#123456789012345678901234567890123456789012 #
 def grid_add_circle(HG,x,y,rmin,rmax,chars,X,Y):
  rr=[t for t in nrange(rmin,rmax)] # make static list...
  #ind=0
@@ -154,14 +174,8 @@ def grid_add_circle(HG,x,y,rmin,rmax,chars,X,Y):
     HG=spoint(x-i,y-j,HG,c)
  return HG
 
+#123456789012345678901234567890123456789012 #
 def add_one_with_dir(x,y,g,d,X,Y,char=''):
- dirs={}
- dirs['X']={'xd': 2,'yd': 0,'c':'_'}
- dirs['x']={'xd':-2,'yd': 0,'c':'_'}
- dirs['Y']={'xd': 1,'yd': 1,'c':'\\'}
- dirs['y']={'xd':-1,'yd':-1,'c':'\\'}
- dirs['Z']={'xd':-1,'yd': 1,'c':'/'}
- dirs['z']={'xd': 1,'yd':-1,'c':'/'}
  x+=dirs[d]['xd']
  y+=dirs[d]['yd']
  c=char
@@ -173,6 +187,7 @@ def add_one_with_dir(x,y,g,d,X,Y,char=''):
  #todo: make sure in future resetting to add the empty space back
  return spoint(x,y,g,cell),x,y
 
+#123456789012345678901234567890123456789012 #
 #def grid_add_line(HG,x,y,size,direction,chars,X,Y):
 def _get_dim(HG): return len(HG[1]),len(HG)
 def grid_add_line(HG,x,y,size,direction,chars,X=None,Y=None):
@@ -191,6 +206,7 @@ def grid_add_line(HG,x,y,size,direction,chars,X=None,Y=None):
   show(HG,X,Y)
  return HG,x,y
 
+#123456789012345678901234567890123456789012 #
 def grid_add_hexagon(HG,x,y,size,chars=''):
  ccycle=cycle(chars)
  hexpath='XYZxyz'
@@ -207,3 +223,4 @@ def grid_add_hexagon(HG,x,y,size,chars=''):
   x+=xa
   y+=ya
   HG,x,y=grid_add_line(HG,x,y,size-1,hexpath[i],ccycle)
+#123456789012345678901234567890123456789012 #
