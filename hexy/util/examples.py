@@ -292,7 +292,7 @@ def example_cmd_cslice_select_H_and_V():
 :|\. . . ./.|:4
 :|.\_ _ _/. |:5
 :|__________|:
-:|1 2 3 4 5 |::
+:|1 2 3 4 5 |:
 """
  res=EXAMPLE_TEMPLATE.format(name=name,
                              explain=explain,

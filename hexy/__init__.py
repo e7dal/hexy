@@ -76,7 +76,8 @@ class Hexy(object):
  def line(self,xpos,ypos,chars,size,direction):
   if self.dumb:
    self.grid=grid_make(self.X,self.Y)
-  self.grid=grid_add_line(self.grid,xpos,ypos,size,direction,chars,self.X,self.Y)
+  grid,X,Y=grid_add_line(self.grid,xpos,ypos,size,direction,chars,self.X,self.Y)
+  self.grid=grid
 
  def read(self,fc=[]):
   g,x,y=grid_read(fc)
