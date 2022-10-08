@@ -74,7 +74,7 @@ def cli(ctx, xsize,ysize,xpos,ypos,size):
 
  if animate:
   for i in nr(size,pulse,repeat):
-   start=time.clock()
+   start=time.monotonic()
    if clear:
     g=Hexy(x=xsize,y=ysize)
    p=next(pos(xpos,ypos))
@@ -82,7 +82,7 @@ def cli(ctx, xsize,ysize,xpos,ypos,size):
    time.sleep(.1)
    click.clear()
    click.echo(g.show())
-   end=time.clock()
+   end=time.monotonic()
    print('took:%.2f size:%d / %d '%(end-start,i,size))
  else:
    g.draw(xpos=xpos,ypos=ypos,size=size)
