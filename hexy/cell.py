@@ -24,7 +24,7 @@ class Cell(object):
    self._pos=(x,y)
   self.add_history()
  def add_history(self):
-  self._hist.append((self._pos,self._str,time.clock()))
+  self._hist.append((self._pos,self._str,time.monotonic()))
 
 
 #TODO remove old stuff
